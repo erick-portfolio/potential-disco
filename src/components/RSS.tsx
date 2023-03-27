@@ -54,7 +54,10 @@ function RSS({ url, title, isDarkMode }: RSSProps) {
     <div className={`RSS`}>
       <h1>{title}</h1>
       {items.map((item, index) => (
-        <Card key={index} className="mb-3">
+        <Card key={index} className="mb-3"
+        // style background transparent
+        style={{ backgroundColor: "transparent" }}
+        >
           <Card.Body>
             <Card.Title>
               <a href={item.link}>{item.title}</a>

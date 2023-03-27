@@ -44,7 +44,9 @@ function RSS(_a) {
             console.error("Error fetching RSS feed", error);
         });
     }, [url]);
-    return ((0, jsx_runtime_1.jsxs)("div", __assign({ className: "RSS" }, { children: [(0, jsx_runtime_1.jsx)("h1", { children: title }, void 0), items.map(function (item, index) { return ((0, jsx_runtime_1.jsx)(react_bootstrap_1.Card, __assign({ className: "mb-3" }, { children: (0, jsx_runtime_1.jsxs)(react_bootstrap_1.Card.Body, { children: [(0, jsx_runtime_1.jsx)(react_bootstrap_1.Card.Title, { children: (0, jsx_runtime_1.jsx)("a", __assign({ href: item.link }, { children: item.title }), void 0) }, void 0), (0, jsx_runtime_1.jsx)(react_bootstrap_1.Card.Subtitle, __assign({ className: "mb-2 text-muted" }, { children: new Date(item.pubDate).toLocaleString() }), void 0), item.content && ((0, jsx_runtime_1.jsx)(react_bootstrap_1.Card.Text, { dangerouslySetInnerHTML: { __html: sanitizeHtml(item.content) } }, void 0))] }, void 0) }), index)); })] }), void 0));
+    return ((0, jsx_runtime_1.jsxs)("div", __assign({ className: "RSS" }, { children: [(0, jsx_runtime_1.jsx)("h1", { children: title }, void 0), items.map(function (item, index) { return ((0, jsx_runtime_1.jsx)(react_bootstrap_1.Card, __assign({ className: "mb-3", 
+                // style background transparent
+                style: { backgroundColor: "transparent" } }, { children: (0, jsx_runtime_1.jsxs)(react_bootstrap_1.Card.Body, { children: [(0, jsx_runtime_1.jsx)(react_bootstrap_1.Card.Title, { children: (0, jsx_runtime_1.jsx)("a", __assign({ href: item.link }, { children: item.title }), void 0) }, void 0), (0, jsx_runtime_1.jsx)(react_bootstrap_1.Card.Subtitle, __assign({ className: "mb-2 text-muted" }, { children: new Date(item.pubDate).toLocaleString() }), void 0), item.content && ((0, jsx_runtime_1.jsx)(react_bootstrap_1.Card.Text, { dangerouslySetInnerHTML: { __html: sanitizeHtml(item.content) } }, void 0))] }, void 0) }), index)); })] }), void 0));
 }
 function sanitizeHtml(html) {
     var doc = new DOMParser().parseFromString(html, "text/html");
