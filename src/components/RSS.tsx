@@ -51,7 +51,7 @@ function RSS({ url, title, isDarkMode }: RSSProps) {
   }, [url]);
 
   return (
-    <div className={`RSS ${isDarkMode ? 'bg-dark text-white' : ''}`}>
+    <div className={`RSS`}>
       <h1>{title}</h1>
       {items.map((item, index) => (
         <Card key={index} className="mb-3">

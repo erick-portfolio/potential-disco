@@ -6,7 +6,7 @@ interface WebsitesProps {
 
 export function Websites({ isDarkMode }: WebsitesProps) {
   return (
-    <div className={`album py-5 ${isDarkMode ? "bg-dark" : ""}`}>
+    <div className={`album py-5`}>
       <div className="row">
         <div className="col-md-4">
           <RSS url="https://rss.app/feeds/SKuOSGkvoiukNpK5.xml" title='The Wolfpacker Home' isDarkMode={isDarkMode} />
