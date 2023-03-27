@@ -13,12 +13,14 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Feed = void 0;
 var jsx_runtime_1 = require("react/jsx-runtime");
+require("./Feed.css");
 var react_twitter_widgets_1 = require("react-twitter-widgets");
 function Feed(_a) {
     var isDarkMode = _a.isDarkMode;
     var options = {
         height: "1600",
         theme: isDarkMode ? "dark" : "light",
+        chrome: "noheader nofooter noborders transparent noscrollbar",
     };
     return ((0, jsx_runtime_1.jsx)("div", __assign({ className: "mt-5" }, { children: (0, jsx_runtime_1.jsx)(react_twitter_widgets_1.Timeline, { dataSource: {
                 sourceType: "list",

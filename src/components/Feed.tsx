@@ -1,3 +1,4 @@
+import "./Feed.css";
 import { Timeline } from "react-twitter-widgets";
 
 interface FeedProps {
@@ -8,6 +9,7 @@ export function Feed({ isDarkMode }: FeedProps) {
   const options = {
     height: "1600",
     theme: isDarkMode ? "dark" : "light",
+    chrome: "noheader nofooter noborders transparent noscrollbar",
   };
 
   return (
