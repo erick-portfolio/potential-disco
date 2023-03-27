@@ -11,9 +11,10 @@ interface RSSItem {
 interface RSSProps {
   url: string;
   title: string;
+  isDarkMode: boolean;
 }
 
-function RSS({ url, title }: RSSProps) {
+function RSS({ url, title, isDarkMode }: RSSProps) {
   const [items, setItems] = useState<RSSItem[]>([]);
 
   useEffect(() => {
@@ -53,7 +54,7 @@ function RSS({ url, title }: RSSProps) {
   }, [url]);
 
   return (
-    <div>
+    <div className={`RSS ${isDarkMode ? 'bg-dark text-white' : ''}`}>
       <h1>{title}</h1>
       {items.map((item, index) => (
         <Card key={index} className="mb-3">

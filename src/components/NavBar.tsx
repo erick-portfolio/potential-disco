@@ -1,11 +1,29 @@
+import { useState } from "react";
 
-export function NavBar() {
+interface NavBarProps {
+  isDarkMode: boolean;
+  toggleDarkMode: () => void;
+}
+
+export function NavBar({ isDarkMode, toggleDarkMode }: NavBarProps) {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-      <div className="container">
+    <nav
+      className={`navbar navbar-expand-lg ${
+        isDarkMode ? "navbar-dark bg-dark" : "navbar-light bg-light"
+      }`}
+    >
+      <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
         <a className="navbar-brand" href="/">
           WolfpackWireClone
         </a>
+      </div>
+      <div className="ml-auto">
+        <button
+          className={`btn btn-outline-${isDarkMode ? "light" : "dark"}`}
+          onClick={toggleDarkMode}
+        >
+          {isDarkMode ? "Light Mode" : "Dark Mode"}
+        </button>
       </div>
     </nav>
   );

@@ -13,8 +13,9 @@ var __assign = (this && this.__assign) || function () {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.NavBar = void 0;
 var jsx_runtime_1 = require("react/jsx-runtime");
-function NavBar() {
-    return ((0, jsx_runtime_1.jsx)("nav", __assign({ className: "navbar navbar-expand-lg navbar-dark bg-dark" }, { children: (0, jsx_runtime_1.jsx)("div", __assign({ className: "container" }, { children: (0, jsx_runtime_1.jsx)("a", __assign({ className: "navbar-brand", href: "/" }, { children: "WolfpackWireClone" }), void 0) }), void 0) }), void 0));
+function NavBar(_a) {
+    var isDarkMode = _a.isDarkMode, toggleDarkMode = _a.toggleDarkMode;
+    return ((0, jsx_runtime_1.jsxs)("nav", __assign({ className: "navbar navbar-expand-lg ".concat(isDarkMode ? "navbar-dark bg-dark" : "navbar-light bg-light") }, { children: [(0, jsx_runtime_1.jsx)("div", __assign({ style: { paddingLeft: "20px", paddingRight: "20px" } }, { children: (0, jsx_runtime_1.jsx)("a", __assign({ className: "navbar-brand", href: "/" }, { children: "WolfpackWireClone" }), void 0) }), void 0), (0, jsx_runtime_1.jsx)("div", __assign({ className: "ml-auto" }, { children: (0, jsx_runtime_1.jsx)("button", __assign({ className: "btn btn-outline-".concat(isDarkMode ? "light" : "dark"), onClick: toggleDarkMode }, { children: isDarkMode ? "Light Mode" : "Dark Mode" }), void 0) }), void 0)] }), void 0));
 }
 exports.NavBar = NavBar;
 exports.default = NavBar;

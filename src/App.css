@@ -1,0 +1,14 @@
+.App.dark-mode {
+    background-color: #222;
+    color: #fff;
+  }
+  
+  .App.dark-mode .navbar-light .navbar-brand {
+    color: #fff;
+  }
+  
+  .App.dark-mode .card {
+    background-color: #333;
+    color: #fff;
+  }
+  

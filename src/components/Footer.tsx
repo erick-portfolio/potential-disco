@@ -1,8 +1,12 @@
 import React from "react";
 
-export function Footer() {
+export interface FooterProps {
+  isDarkMode: boolean;
+}
+
+export function Footer({ isDarkMode }: FooterProps) {
   return (
-    <div className="container">
+    <div className={`container${isDarkMode ? " dark-mode" : ""}`}>
       <footer className="py-3 my-4">
         <ul className="nav justify-content-center border-bottom pb-3 mb-3">
           <li className="nav-item">

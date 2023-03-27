@@ -1,6 +1,15 @@
 import { Timeline } from "react-twitter-widgets";
 
-export function Feed() {
+interface FeedProps {
+  isDarkMode: boolean;
+}
+
+export function Feed({ isDarkMode }: FeedProps) {
+  const options = {
+    height: "1600",
+    theme: isDarkMode ? "dark" : "light",
+  };
+
   return (
     <div className="mt-5">
       <Timeline
@@ -9,9 +18,7 @@ export function Feed() {
           ownerScreenName: "ErickGa03448617",
           slug: "1639559616253100032",
         }}
-        options={{
-          height: "1600",
-        }}
+        options={options}
       />
     </div>
   );

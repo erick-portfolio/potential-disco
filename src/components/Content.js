@@ -14,8 +14,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Content = void 0;
 var jsx_runtime_1 = require("react/jsx-runtime");
 var _1 = require(".");
-function Content() {
-    return ((0, jsx_runtime_1.jsx)("div", __assign({ className: "Content", style: { paddingLeft: "20px", paddingRight: "20px" } }, { children: (0, jsx_runtime_1.jsx)("div", __assign({ className: "" }, { children: (0, jsx_runtime_1.jsxs)("div", __assign({ className: "row" }, { children: [(0, jsx_runtime_1.jsx)("div", __assign({ className: "col-md-10" }, { children: (0, jsx_runtime_1.jsx)(_1.Websites, {}, void 0) }), void 0), (0, jsx_runtime_1.jsx)("div", __assign({ className: "col-md-2" }, { children: (0, jsx_runtime_1.jsx)(_1.Feed, {}, void 0) }), void 0)] }), void 0) }), void 0) }), void 0));
+function Content(_a) {
+    var isDarkMode = _a.isDarkMode;
+    return ((0, jsx_runtime_1.jsx)("div", __assign({ className: "Content ".concat(isDarkMode ? "dark" : ""), style: { paddingLeft: "20px", paddingRight: "20px" } }, { children: (0, jsx_runtime_1.jsx)("div", __assign({ className: "" }, { children: (0, jsx_runtime_1.jsxs)("div", __assign({ className: "row" }, { children: [(0, jsx_runtime_1.jsx)("div", __assign({ className: "col-md-10" }, { children: (0, jsx_runtime_1.jsx)(_1.Websites, { isDarkMode: isDarkMode }, void 0) }), void 0), (0, jsx_runtime_1.jsx)("div", __assign({ className: "col-md-2" }, { children: (0, jsx_runtime_1.jsx)(_1.Feed, { isDarkMode: isDarkMode }, void 0) }), void 0)] }), void 0) }), void 0) }), void 0));
 }
 exports.Content = Content;
 exports.default = Content;

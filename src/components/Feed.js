@@ -14,14 +14,17 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Feed = void 0;
 var jsx_runtime_1 = require("react/jsx-runtime");
 var react_twitter_widgets_1 = require("react-twitter-widgets");
-function Feed() {
+function Feed(_a) {
+    var isDarkMode = _a.isDarkMode;
+    var options = {
+        height: "1600",
+        theme: isDarkMode ? "dark" : "light",
+    };
     return ((0, jsx_runtime_1.jsx)("div", __assign({ className: "mt-5" }, { children: (0, jsx_runtime_1.jsx)(react_twitter_widgets_1.Timeline, { dataSource: {
                 sourceType: "list",
                 ownerScreenName: "ErickGa03448617",
                 slug: "1639559616253100032",
-            }, options: {
-                height: "1600",
-            } }, void 0) }), void 0));
+            }, options: options }, void 0) }), void 0));
 }
 exports.Feed = Feed;
 exports.default = Feed;
