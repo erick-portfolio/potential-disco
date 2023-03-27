@@ -20,7 +20,7 @@ function Feed() {
                 ownerScreenName: "ErickGa03448617",
                 slug: "1639559616253100032",
             }, options: {
-                height: "800",
+                height: "1600",
             } }, void 0) }), void 0));
 }
 exports.Feed = Feed;

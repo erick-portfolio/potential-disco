@@ -10,7 +10,7 @@ export function Feed() {
           slug: "1639559616253100032",
         }}
         options={{
-          height: "800",
+          height: "1600",
         }}
       />
     </div>
