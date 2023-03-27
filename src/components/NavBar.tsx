@@ -11,8 +11,9 @@ export function NavBar({ isDarkMode, toggleDarkMode }: NavBarProps) {
       className={`navbar navbar-expand-lg ${
         isDarkMode ? "navbar-dark bg-dark" : "navbar-light bg-light"
       }`}
+      style={{ paddingRight: "20px" }}
     >
-      <div style={{ paddingLeft: "20px", paddingRight: "20px" }}>
+      <div style={{ paddingLeft: "20px" }}>
         <a className="navbar-brand" href="/">
           WolfpackWireClone
         </a>
