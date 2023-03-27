@@ -1,3 +1,5 @@
+import "./RSS.css";
+
 import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 
@@ -18,19 +20,15 @@ function RSS({ url, title, isDarkMode }: RSSProps) {
   const [items, setItems] = useState<RSSItem[]>([]);
 
   useEffect(() => {
-    console.log("Fetching RSS feed from", url);
 
     fetch(url)
       .then((response) => {
-        console.log("Received response", response);
         return response.text();
       })
       .then((str) => {
-        console.log("Parsing XML", str);
         return new window.DOMParser().parseFromString(str, "text/xml");
       })
       .then((data) => {
-        console.log("Parsing RSS feed", data);
 
         const items = data.querySelectorAll("item");
         const rssItems: RSSItem[] = [];
@@ -44,7 +42,6 @@ function RSS({ url, title, isDarkMode }: RSSProps) {
           });
         });
 
-        console.log("Parsed items", rssItems);
 
         setItems(rssItems.slice(0, 6));
       })

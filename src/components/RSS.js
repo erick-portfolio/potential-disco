@@ -12,24 +12,21 @@ var __assign = (this && this.__assign) || function () {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 var jsx_runtime_1 = require("react/jsx-runtime");
+require("./RSS.css");
 var react_1 = require("react");
 var react_bootstrap_1 = require("react-bootstrap");
 function RSS(_a) {
     var url = _a.url, title = _a.title, isDarkMode = _a.isDarkMode;
     var _b = (0, react_1.useState)([]), items = _b[0], setItems = _b[1];
     (0, react_1.useEffect)(function () {
-        console.log("Fetching RSS feed from", url);
         fetch(url)
             .then(function (response) {
-            console.log("Received response", response);
             return response.text();
         })
             .then(function (str) {
-            console.log("Parsing XML", str);
             return new window.DOMParser().parseFromString(str, "text/xml");
         })
             .then(function (data) {
-            console.log("Parsing RSS feed", data);
             var items = data.querySelectorAll("item");
             var rssItems = [];
             items.forEach(function (item) {
@@ -41,7 +38,6 @@ function RSS(_a) {
                     content: (_h = (_g = item.querySelector("content")) === null || _g === void 0 ? void 0 : _g.textContent) !== null && _h !== void 0 ? _h : "",
                 });
             });
-            console.log("Parsed items", rssItems);
             setItems(rssItems.slice(0, 6));
         })
             .catch(function (error) {
