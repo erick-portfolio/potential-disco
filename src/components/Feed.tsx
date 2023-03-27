@@ -9,7 +9,7 @@ export function Feed({ isDarkMode }: FeedProps) {
   const options = {
     height: "1600",
     theme: isDarkMode ? "dark" : "light",
-    chrome: "noheader nofooter noborders transparent noscrollbar",
+    chrome: "noheader nofooter transparent noscrollbar",
   };
 
   return (

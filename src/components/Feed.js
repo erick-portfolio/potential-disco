@@ -20,7 +20,7 @@ function Feed(_a) {
     var options = {
         height: "1600",
         theme: isDarkMode ? "dark" : "light",
-        chrome: "noheader nofooter noborders transparent noscrollbar",
+        chrome: "noheader nofooter transparent noscrollbar",
     };
     return ((0, jsx_runtime_1.jsx)("div", __assign({ className: "mt-5" }, { children: (0, jsx_runtime_1.jsx)(react_twitter_widgets_1.Timeline, { dataSource: {
                 sourceType: "list",
