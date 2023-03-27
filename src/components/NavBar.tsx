@@ -23,12 +23,14 @@ export function NavBar({ isDarkMode, toggleDarkMode }: NavBarProps) {
         </a>
       </div>
       <div className="navbar-nav me-auto">
-      <button
-        className={`btn btn-outline-${isDarkMode ? "light" : "dark"}`}
-        onClick={toggleDarkMode}
-      >
-        {isDarkMode ? "Light Mode" : "Dark Mode"}
-      </button>
+        <button
+        // style so that the text won't wrap
+          style={{ whiteSpace: "nowrap" }}
+          className={`btn btn-outline-${isDarkMode ? "light" : "dark"}`}
+          onClick={toggleDarkMode}
+        >
+          {isDarkMode ? "Light Mode" : "Dark Mode"}
+        </button>
       </div>
     </nav>
   );
