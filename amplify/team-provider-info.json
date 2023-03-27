@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-wolfpackwireclone-dev-51446-authRole",
+      "UnauthRoleArn": "arn:aws:iam::641757434657:role/amplify-wolfpackwireclone-dev-51446-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::641757434657:role/amplify-wolfpackwireclone-dev-51446-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-wolfpackwireclone-dev-51446-deployment",
+      "UnauthRoleName": "amplify-wolfpackwireclone-dev-51446-unauthRole",
+      "StackName": "amplify-wolfpackwireclone-dev-51446",
+      "StackId": "arn:aws:cloudformation:us-east-1:641757434657:stack/amplify-wolfpackwireclone-dev-51446/7b1691d0-caed-11ed-ba07-0a3ed959374f",
+      "AmplifyAppId": "d3h865pn607439"
+    }
+  }
+}
