@@ -2,7 +2,7 @@ import { Websites, Feed } from ".";
 
 export function Content() {
   return (
-    <div className="Content" style={{ paddingLeft: "20px" }}>
+    <div className="Content" style={{ paddingLeft: "20px", paddingRight: "20px" }}>
       <div className="">
         <div className="row">
           <div className="col-md-10"><Websites /></div>
