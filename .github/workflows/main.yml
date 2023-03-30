@@ -1,12 +1,8 @@
 name: ChatGPT Rewriter
 
 on:
-  push:
-    branches:
-      - main
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   chatgpt_rewriter_job:
@@ -23,9 +19,8 @@ jobs:
           npm install -g recursive-readdir
           npm install openai
       - name: Rewrite code using ChatGPT
-        env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         run: |
+          node <<EOF
           const openai = require('openai');
           const recursive = require('recursive-readdir');
           const fs = require('fs');
@@ -70,6 +65,9 @@ jobs:
               }
             });
           });
+          EOF
+        env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
       - name: Install Create Pull Request action
         uses: peter-evans/create-pull-request@v3.5.1
       - name: Create pull request for rewritten code
