@@ -5,28 +5,29 @@ on:
     types: [opened, synchronize]
 
 jobs:
-  openai_code_rewrite:
+  rewrite:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      
-      - name: Move repository to folder
-        run: |
-          mkdir -p workspace/repo
-          cp -R . workspace/repo/
-          cd workspace/repo/
-          if [ -f package.json ]; then mv package.json .package.json; fi
-      
+
+      - name: Create workspace directory
+        run: mkdir -p workspace
+
+      - name: Copy repository to workspace
+        run: cp -R --exclude=workspace . workspace/repo/
+
+      - name: Move into workspace
+        run: cd workspace/repo/
+
+      - name: Rename package.json
+        run: if [ -f package.json ]; then mv package.json .package.json; fi
+
       - name: Install dependencies
-        run: |
-          cd workspace/repo/
-          if [ -f package.json ]; then mv .package.json package.json; fi
-          npm install openai recursive-readdir
-      
+        run: npm install openai recursive-readdir
+
       - name: Rewrite code using OpenAI
         run: |
-          cd workspace/repo/
           node <<EOF
           const openai = require('openai');
           const recursive = require('recursive-readdir');
@@ -73,5 +74,15 @@ jobs:
             });
           });
           EOF
+
+      - name: Move back to root directory
+        run: cd ../../
+
+      - name: Commit changes
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: GitHub Actions
+          author_email: actions@github.com
+          message: Automated code rewrite using OpenAI
         env:
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
