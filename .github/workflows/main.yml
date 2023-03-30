@@ -5,6 +5,16 @@ on:
     types: [opened, synchronize]
 
 jobs:
+  check_secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check if OpenAI API key is present
+        run: |
+          if [ -z "${{ secrets.OPENAI_API_KEY }}" ]; then
+            echo "Secret for OpenAI API key is missing. Please set it up in the repository secrets." && exit 1
+          fi
+        shell: bash
+
   rewrite:
     runs-on: ubuntu-latest
     steps:
@@ -16,9 +26,9 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '16'
-      - name: Create package.json and install dependencies
+      - name: Install OpenAI and recursive-readdir
         run: |
-          echo '{"name": "chatgpt-rewrite", "version": "0.1.0"}' > package.json
+          npm init -y
           npm install openai recursive-readdir
       - name: Rewrite code using ChatGPT
         run: |
@@ -74,8 +84,9 @@ jobs:
         run: |
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git add .
+          git add -A
           git commit -m "Rewrite code using ChatGPT"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: bash
