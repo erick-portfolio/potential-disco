@@ -1,4 +1,5 @@
 name: ChatGPT Rewriter
+
 on:
   pull_request:
 
@@ -15,7 +16,7 @@ jobs:
       - name: Install dependencies
         run: |
           npm install -g recursive-readdir
-          npm install openai
+          npm install openai recursive-readdir
       - name: Rewrite code using ChatGPT
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
