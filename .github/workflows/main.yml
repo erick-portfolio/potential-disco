@@ -1,23 +1,32 @@
-name: AI Rewriter
+name: OpenAI Code Rewrite
 
 on:
-    pull_request:
-      types: [opened, synchronize]
-  
+  pull_request:
+    types: [opened, synchronize]
+
 jobs:
-  rewriter:
+  openai_code_rewrite:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '16.x'
-      - name: Install dependencies
-        run: npm install openai recursive-readdir
-      - name: Rewrite code using ChatGPT
+      
+      - name: Move repository to folder
         run: |
+          mkdir -p workspace/repo
+          cp -R . workspace/repo/
+          cd workspace/repo/
+          if [ -f package.json ]; then mv package.json .package.json; fi
+      
+      - name: Install dependencies
+        run: |
+          cd workspace/repo/
+          if [ -f package.json ]; then mv .package.json package.json; fi
+          npm install openai recursive-readdir
+      
+      - name: Rewrite code using OpenAI
+        run: |
+          cd workspace/repo/
           node <<EOF
           const openai = require('openai');
           const recursive = require('recursive-readdir');
