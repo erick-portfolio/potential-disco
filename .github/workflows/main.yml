@@ -5,7 +5,8 @@ on:
     branches:
       - main
   pull_request:
-    types: [opened, synchronize]
+    branches:
+      - main
 
 jobs:
   chatgpt_rewriter_job:
@@ -27,6 +28,7 @@ jobs:
         run: |
           const openai = require('openai');
           const recursive = require('recursive-readdir');
+          const fs = require('fs');
           const apiKey = process.env.OPENAI_API_KEY;
           const model = 'text-davinci-002';
           const languagePromptMap = {
