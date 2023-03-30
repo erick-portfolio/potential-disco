@@ -1,32 +1,31 @@
-name: OpenAI Code Rewriting
+name: ChatGPT Code Rewrite
 
 on:
   pull_request:
     types: [opened, synchronize]
 
 jobs:
-  build:
+  rewrite:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code repository
-        uses: actions/checkout@v2
-
-      - name: Create workspace directory
+      - uses: actions/checkout@v2
+      - name: Move repository
         run: |
-          mkdir -p workspace/repo
-          rsync -av --exclude='workspace/' . workspace/repo/
-        working-directory: ${{ github.workspace }}
-
-      - name: Install dependencies
+          mkdir -p repo
+          cp -R --exclude=workspace . repo/
+          cd repo/
+          mv package.json .package.json || true
+          mv .git .repo.git || true
+          shopt -s dotglob && mv .* .. || true
+        shell: /bin/bash
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '16'
+      - name: Install OpenAI and recursive-readdir
+        run: npm install openai recursive-readdir
+      - name: Rewrite code using ChatGPT
         run: |
-          cd workspace/repo/
-          if [ -f package.json ]; then mv package.json .package.json; fi
-          npm install
-        working-directory: ${{ github.workspace }}
-
-      - name: Rewrite code using OpenAI
-        run: |
-          cd workspace/repo/
           node <<EOF
           const openai = require('openai');
           const recursive = require('recursive-readdir');
@@ -75,10 +74,14 @@ jobs:
           EOF
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        working-directory: ${{ github.workspace }}
-
-      - name: Push changes to branch
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.head_ref }}
+        shell: /bin/bash
+      - name: Push changes
+        run: |
+          git config --global user.email "action@github.com"
+          git config --global user.name "GitHub Action"
+          git add .
+          git commit -m "Rewrite code using ChatGPT"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        shell: /bin/bash
