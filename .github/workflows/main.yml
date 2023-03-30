@@ -1,33 +1,33 @@
-name: OpenAI Code Rewriter
+name: OpenAI Code Rewriting
 
 on:
   pull_request:
     types: [opened, synchronize]
 
 jobs:
-  rewrite_code:
+  build:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code repository
         uses: actions/checkout@v2
 
-      - name: Create directory for code repository
-        run: mkdir -p workspace/repo
+      - name: Create workspace directory
+        run: |
+          mkdir -p workspace/repo
+          rsync -av --exclude='workspace/' . workspace/repo/
+        working-directory: ${{ github.workspace }}
 
-      - name: Copy code repository to workspace directory
-        run: rsync -av --exclude='workspace/' ./ workspace/repo/
+      - name: Install dependencies
+        run: |
+          cd workspace/repo/
+          if [ -f package.json ]; then mv package.json .package.json; fi
+          npm install
+        working-directory: ${{ github.workspace }}
 
-      - name: Move to code repository directory
-        run: cd workspace/repo
-
-      - name: Rename package.json if exists
-        run: if [ -f package.json ]; then mv package.json .package.json; fi
-
-      - name: Install required packages
-        run: npm install openai recursive-readdir
-
-      - name: Rewrite code using ChatGPT
-        run: node <<EOF
+      - name: Rewrite code using OpenAI
+        run: |
+          cd workspace/repo/
+          node <<EOF
           const openai = require('openai');
           const recursive = require('recursive-readdir');
           const fs = require('fs');
@@ -75,3 +75,10 @@ jobs:
           EOF
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        working-directory: ${{ github.workspace }}
+
+      - name: Push changes to branch
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.head_ref }}
