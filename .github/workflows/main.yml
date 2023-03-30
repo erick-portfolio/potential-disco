@@ -1,7 +1,6 @@
 name: ChatGPT Rewriter
 on:
   pull_request:
-    types: [opened]
 
 jobs:
   chatgpt_rewriter_job:
