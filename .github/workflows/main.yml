@@ -8,16 +8,11 @@ jobs:
   rewrite:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - name: Move repository
-        run: |
-          mkdir -p repo
-          cp -R --exclude=workspace . repo/
-          cd repo/
-          mv package.json .package.json || true
-          mv .git .repo.git || true
-          shopt -s dotglob && mv .* .. || true
-        shell: /bin/bash
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
+          path: repo
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
@@ -44,7 +39,7 @@ jobs:
             'py': [':', '\n'],
             // add more languages here as needed
           };
-          recursive('.', (err, files) => {
+          recursive('repo', (err, files) => {
             if (err) {
               throw err;
             }
@@ -75,11 +70,12 @@ jobs:
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
         shell: /bin/bash
-      - name: Push changes
+      - name: Commit and push changes
         run: |
+          cd repo
           git config --global user.email "action@github.com"
           git config --global user.name "GitHub Action"
-          git add .
+          git add -A
           git commit -m "Rewrite code using ChatGPT"
           git push
         env:
