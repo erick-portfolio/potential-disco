@@ -69,7 +69,6 @@ jobs:
           EOF
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-        shell: /bin/bash
       - name: Commit and push changes
         run: |
           cd repo
@@ -80,4 +79,3 @@ jobs:
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        shell: /bin/bash
