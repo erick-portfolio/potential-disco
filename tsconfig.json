@@ -14,8 +14,9 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": false,
-    "jsx": "react-jsx"
+    "jsx": "react-jsx",
+    "outDir": "./dist"
   },
-  "include": ["src", "webpack.config.ts"],
-  "exclude": ["src/aws-exports.js"],
+  "include": ["src"],
+  "exclude": ["src/aws-exports.js"]
 }
