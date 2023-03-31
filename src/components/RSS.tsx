@@ -2,7 +2,7 @@ import "./RSS.css";
 
 import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
-
+import { Link } from "react-router-dom";
 interface RSSItem {
   title: string;
   link: string;
@@ -13,10 +13,11 @@ interface RSSItem {
 interface RSSProps {
   url: string;
   title: string;
+  homepage: string;
   isDarkMode: boolean;
 }
 
-function RSS({ url, title, isDarkMode }: RSSProps) {
+function RSS({ homepage, url, title, isDarkMode }: RSSProps) {
   const [items, setItems] = useState<RSSItem[]>([]);
 
   useEffect(() => {
@@ -52,7 +53,9 @@ function RSS({ url, title, isDarkMode }: RSSProps) {
 
   return (
     <div className={`RSS`}>
+      <Link to={homepage} style={{ textDecoration: "none"}}>
       <h1>{title}</h1>
+      </Link>
       {items.map((item, index) => (
         <Card key={index} className="mb-3"
         // style background transparent

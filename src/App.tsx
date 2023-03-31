@@ -2,7 +2,20 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import { NavBar, Footer, Content } from "./components";
 
-function App() {
+interface AppProps {
+  twitterFeedConfig: {
+    sourceType: string;
+    ownerScreenName: string;
+    slug: string;
+  };
+  rssConfig: {
+    url: string;
+    homepage: string;
+    title: string;
+  }[];
+}
+
+function App({ twitterFeedConfig, rssConfig }: AppProps) {
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem("isDarkMode") === "true"
   );
@@ -17,8 +30,12 @@ function App() {
 
   return (
     <div className={`App${isDarkMode ? " dark-mode" : ""}`}>
-      <NavBar isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
-      <Content isDarkMode={isDarkMode} />
+      <NavBar
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
+        brandText="WolfpackWireClone"
+      />
+      <Content isDarkMode={isDarkMode}  rssConfig={rssConfig} twitterFeedConfig={twitterFeedConfig}/>
       <Footer isDarkMode={isDarkMode} />
     </div>
   );

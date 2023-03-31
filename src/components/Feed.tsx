@@ -3,25 +3,34 @@ import { Timeline } from "react-twitter-widgets";
 
 interface FeedProps {
   isDarkMode: boolean;
+  dataSource: {
+    sourceType: string;
+    ownerScreenName: string;
+    slug: string;
+  };
 }
 
-export function Feed({ isDarkMode }: FeedProps) {
-  const options = {
+export function Feed({ isDarkMode, dataSource }: FeedProps) {
+  const darkModeOptions = {
     height: "1600",
-    theme: isDarkMode ? "dark" : "light",
+    theme: "dark",
+    chrome: "noheader nofooter transparent noscrollbar",
+  };
+
+  const lightModeOptions = {
+    height: "1600",
+    theme: "light",
     chrome: "noheader nofooter transparent noscrollbar",
   };
 
   return (
     <div className="mt-5">
-      <Timeline
-        dataSource={{
-          sourceType: "list",
-          ownerScreenName: "ErickGa03448617",
-          slug: "1639559616253100032",
-        }}
-        options={options}
-      />
+      <div style={{ display: isDarkMode ? "none" : "block" }}>
+        <Timeline dataSource={dataSource} options={lightModeOptions} />
+      </div>
+      <div style={{ display: isDarkMode ? "block" : "none" }}>
+        <Timeline dataSource={dataSource} options={darkModeOptions} />
+      </div>
     </div>
   );
 }

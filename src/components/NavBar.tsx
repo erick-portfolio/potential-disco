@@ -1,11 +1,11 @@
-import { useState } from "react";
 
 interface NavBarProps {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
+  brandText: string;
 }
 
-export function NavBar({ isDarkMode, toggleDarkMode }: NavBarProps) {
+export function NavBar({ isDarkMode, toggleDarkMode, brandText }: NavBarProps) {
   return (
     <nav
       className={`navbar navbar-expand-sm ${
@@ -19,7 +19,7 @@ export function NavBar({ isDarkMode, toggleDarkMode }: NavBarProps) {
           href="/"
           style={{ color: "#d62828", fontSize: "30px", fontWeight: "bold" }}
         >
-          WolfpackWireClone
+          {brandText}
         </a>
       </div>
       <div className="navbar-nav me-auto">

@@ -1,28 +1,27 @@
-import RSS from './RSS';
+import RSS from "./RSS";
+
+interface RssList {
+  url: string;
+  title: string;
+  homepage: string;
+}
 
 interface WebsitesProps {
   isDarkMode: boolean;
+  rssList: RssList[];
 }
 
-export function Websites({ isDarkMode }: WebsitesProps) {
+export function Websites({ isDarkMode, rssList }: WebsitesProps) {
   return (
-    <div className={`album py-5`}>
+    <div className="album py-5">
       <div className="row">
-        <div className="col-md-4">
-          <RSS url="https://rss.app/feeds/SKuOSGkvoiukNpK5.xml" title='The Wolfpacker Home' isDarkMode={isDarkMode} />
-        </div>
-        <div className="col-md-4">
-          <RSS url="https://rss.app/feeds/MsjlAfcmoci3EEJB.xml" title='Busting Brackets' isDarkMode={isDarkMode} />
-        </div>
-        <div className="col-md-4">
-          <RSS url="https://rss.app/feeds/YPScssqlk0pBw7pj.xml" title='Pack Insider' isDarkMode={isDarkMode} />
-        </div>
-        <div className="col-md-4">
-          <RSS url="https://rss.app/feeds/iQCeBDPOUO0YMw8W.xml" title='Pack Pride' isDarkMode={isDarkMode} />
-        </div>
-        <div className="col-md-4">
-          <RSS url="https://rss.app/feeds/Av0Lou3zEW0ndNyZ.xml" title='Backing The Pack' isDarkMode={isDarkMode} />
-        </div>
+        {/* Loop through each item in the rssList array */}
+        {rssList.map(({ homepage, url, title }) => (
+          <div className="col-md-4" key={url}>
+            {/* Render an instance of the RSS component for each item */}
+            <RSS homepage={homepage} url={url} title={title} isDarkMode={isDarkMode} />
+          </div>
+        ))}
       </div>
     </div>
   );

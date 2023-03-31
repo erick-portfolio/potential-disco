@@ -3,42 +3,29 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@babel/register": "^7.21.0",
-    "@swc/register": "^0.1.10",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^27.0.1",
-    "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "bootstrap": "^5.2.3",
-    "buffer": "^6.0.3",
-    "esbuild-register": "^3.4.2",
-    "https-browserify": "^1.0.0",
-    "node-polyfill-webpack-plugin": "^2.0.1",
+    "fs": "^0.0.1-security",
+    "os": "^0.1.2",
+    "path": "^0.12.7",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
-    "react-router-dom": "^6.9.0",
+    "react-router-dom": "^6.10.0",
     "react-scripts": "5.0.1",
     "react-twitter-widgets": "^1.11.0",
-    "stream-http": "^3.2.0",
-    "sucrase": "^3.30.0",
-    "timers-browserify": "^2.0.12",
-    "ts-loader": "^9.4.2",
-    "ts-node": "^10.9.1",
     "typescript": "^5.0.2",
-    "url": "^0.11.0",
-    "web-vitals": "^2.1.0",
-    "webpack": "^5.76.3",
-    "webpack-cli": "^5.0.1"
+    "web-vitals": "^2.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "clean": "rm -rf dist build node_modules"
   },
   "eslintConfig": {
     "extends": [
@@ -58,7 +45,9 @@
       "last 1 safari version"
     ]
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "eslint-config-react-app": "^7.0.1"
+  },
   "resolve": {
     "fallback": {
       "http": "stream-http"
