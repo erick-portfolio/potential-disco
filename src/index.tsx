@@ -10,7 +10,7 @@ import { BrowserRouter } from "react-router-dom";
 const twitterFeedConfig = JSON.parse(process.env.REACT_APP_TWITTER_FEED_CONFIG!);
 const rssConfig = JSON.parse(process.env.REACT_APP_RSS_CONFIG!);
 const brandText = process.env.REACT_APP_BRAND_TEXT!;
-
+const disclaimer = process.env.REACT_APP_DISCLAIMER!;
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
@@ -22,9 +22,9 @@ root.render(
       <App 
       rssConfig={rssConfig}
       twitterFeedConfig={twitterFeedConfig}
-      brandText={brandText}/>
+      brandText={brandText}
+      disclaimer={disclaimer}/>
     </BrowserRouter>
-    ,
   </React.StrictMode>
 );
 
