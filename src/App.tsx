@@ -14,9 +14,10 @@ interface AppProps {
     title: string;
   }[];
   brandText: string;
+  disclaimer: string;
 }
 
-function App({ twitterFeedConfig, rssConfig, brandText }: AppProps) {
+function App({ twitterFeedConfig, rssConfig, brandText, disclaimer }: AppProps) {
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem("isDarkMode") === "true"
   );
@@ -37,7 +38,7 @@ function App({ twitterFeedConfig, rssConfig, brandText }: AppProps) {
         brandText={brandText}
       />
       <Content isDarkMode={isDarkMode}  rssConfig={rssConfig} twitterFeedConfig={twitterFeedConfig}/>
-      <Footer isDarkMode={isDarkMode} />
+      <Footer isDarkMode={isDarkMode} brandText={brandText} disclaimer={disclaimer}/>
     </div>
   );
 }
