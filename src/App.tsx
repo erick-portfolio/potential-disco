@@ -13,9 +13,10 @@ interface AppProps {
     homepage: string;
     title: string;
   }[];
+  brandText: string;
 }
 
-function App({ twitterFeedConfig, rssConfig }: AppProps) {
+function App({ twitterFeedConfig, rssConfig, brandText }: AppProps) {
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem("isDarkMode") === "true"
   );
@@ -33,7 +34,7 @@ function App({ twitterFeedConfig, rssConfig }: AppProps) {
       <NavBar
         isDarkMode={isDarkMode}
         toggleDarkMode={toggleDarkMode}
-        brandText="WolfpackWireClone"
+        brandText={brandText}
       />
       <Content isDarkMode={isDarkMode}  rssConfig={rssConfig} twitterFeedConfig={twitterFeedConfig}/>
       <Footer isDarkMode={isDarkMode} />

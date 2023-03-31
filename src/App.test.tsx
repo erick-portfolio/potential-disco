@@ -5,9 +5,10 @@ import dotenv from 'dotenv';
 dotenv.config();
 const twitterFeedConfig = JSON.parse(process.env.REACT_APP_TWITTER_FEED_CONFIG!);
 const rssConfig = JSON.parse(process.env.REACT_APP_RSS_CONFIG!);
+const brandText = process.env.REACT_APP_NAME!;
 
 test('renders learn react link', () => {
-  render(<App rssConfig={rssConfig} twitterFeedConfig={twitterFeedConfig}/>);
+  render(<App rssConfig={rssConfig} twitterFeedConfig={twitterFeedConfig} brandText={brandText}/>);
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });
