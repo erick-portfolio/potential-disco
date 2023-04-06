@@ -16,10 +16,10 @@ export function Websites({ isDarkMode, rssList }: WebsitesProps) {
     <div className="album py-5">
       <div className="row">
           <div className="col-md-4">
-            <Wolfpacker homepage="https://www.on3.com/teams/nc-state-wolfpack/" title="The Wolfpacker" isDarkMode={isDarkMode} />
+            <Wolfpacker homepage="https://www.on3.com/teams/nc-state-wolfpack/" title="TheWolfpacker" isDarkMode={isDarkMode} />
           </div>
           <div className="col-md-4">
-          <RSSAtom homepage="https://www.backingthepack.com/" url="https://www.backingthepack.com/rss/current.xml" title="Backing The Pack" isDarkMode={isDarkMode} />
+          <RSSAtom homepage="https://www.backingthepack.com/" url="https://www.backingthepack.com/rss/current.xml" title="BackingThePack" isDarkMode={isDarkMode} />
           </div>
       </div>
     </div>

@@ -20,6 +20,7 @@ interface RSSProps {
 
 function RSSAtom({ homepage, url, title, isDarkMode }: RSSProps) {
   const [items, setItems] = useState<AtomItem[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
     fetch(url)
@@ -44,6 +45,9 @@ function RSSAtom({ homepage, url, title, isDarkMode }: RSSProps) {
       })
       .catch((error) => {
         console.error("Error fetching Atom feed", error);
+      })
+      .finally(() => {
+        setIsLoading(false);
       });
   }, [url]);
 
@@ -52,18 +56,28 @@ function RSSAtom({ homepage, url, title, isDarkMode }: RSSProps) {
       <Link to={homepage} style={{ textDecoration: "none"}}>
         <h1>{title}</h1>
       </Link>
-      {items.map((item, index) => (
-        <Card key={index} className="mb-3" style={{ backgroundColor: "transparent" }}>
-          <Card.Body>
-            <Card.Title>
-              <a href={item.link}>{item.title}</a>
-            </Card.Title>
-            <Card.Subtitle className="mb-2 text-muted">
-              {new Date(item.updated).toLocaleString()} by {item.author}
-            </Card.Subtitle>
-          </Card.Body>
-        </Card>
-      ))}
+      {isLoading ? (
+        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+          <div className="spinner-border text-primary" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) : (
+        <>
+          {items.map((item, index) => (
+            <Card key={index} className="mb-3" style={{ backgroundColor: "transparent" }}>
+              <Card.Body>
+                <Card.Title>
+                  <a href={item.link}>{item.title}</a>
+                </Card.Title>
+                <Card.Subtitle className="mb-2 text-muted">
+                  {new Date(item.updated).toLocaleString()} by {item.author}
+                </Card.Subtitle>
+              </Card.Body>
+            </Card>
+          ))}
+        </>
+      )}
     </div>
   );
 }

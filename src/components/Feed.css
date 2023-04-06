@@ -1,3 +1,9 @@
 .r-kemksi {
     background-color: rgb(34 34 34) !important;
 }
+
+.spinner-border {
+    display: block;
+    margin: 0 auto;
+  }
+  
