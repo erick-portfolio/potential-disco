@@ -60,7 +60,7 @@ function Wolfpacker({ homepage, title, isDarkMode }: WolfpackerProps) {
           feedArray.push(feed);
         });
 
-        setItems(feedArray);
+        setItems(feedArray.slice(0, 6));
       } catch (error) {
         console.error("Error fetching RSS feed", error);
       } finally {
@@ -102,7 +102,7 @@ function Wolfpacker({ homepage, title, isDarkMode }: WolfpackerProps) {
             >
               <Card.Body>
                 <Card.Title>
-                  <a href={item.link}>{item.title}</a>
+                <a href={item.link}>{item.title}</a>
                 </Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">
                   {`${item.author} - ${item.pubDate}`}
