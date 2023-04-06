@@ -24,6 +24,7 @@ function Wolfpacker({ homepage, title, isDarkMode }: WolfpackerProps) {
     async function fetchWolfpacker() {
       try {
         let myInit = {
+          cache: true,
           headers: {
             "Content-type": "application/json",
           },
@@ -56,22 +57,23 @@ function Wolfpacker({ homepage, title, isDarkMode }: WolfpackerProps) {
   }, []);
 
   return (
-    <div
-      className={`RSS`}
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
+    <div className={`RSS`}>
       <div style={{ marginBottom: "1rem" }}>
         <a href={homepage} style={{ textDecoration: "none" }}>
           <h1>{title}</h1>
         </a>
       </div>
       {isLoading ? (
-        <div className="spinner-border text-primary" role="status">
+        <div
+          className="spinner-border text-primary "
+          role="status"
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <span className="visually-hidden">Loading...</span>
         </div>
       ) : (
