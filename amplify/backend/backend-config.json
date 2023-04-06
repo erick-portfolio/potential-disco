@@ -1,43 +1,4 @@
 {
-  "api": {
-    "apida839c78": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "wolfpackwireclonea942ae04"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    }
-  },
-  "function": {
-    "wolfpackwireclonea942ae04": {
-      "build": true,
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    }
-  },
-  "parameters": {
-    "AMPLIFY_function_wolfpackwireclonea942ae04_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "wolfpackwireclonea942ae04"
-        }
-      ]
-    },
-    "AMPLIFY_function_wolfpackwireclonea942ae04_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "wolfpackwireclonea942ae04"
-        }
-      ]
-    }
-  }
+  "api": {},
+  "function": {}
 }

@@ -10,17 +10,6 @@
       "StackName": "amplify-wolfpackwireclone-dev-51446",
       "StackId": "arn:aws:cloudformation:us-east-1:641757434657:stack/amplify-wolfpackwireclone-dev-51446/7b1691d0-caed-11ed-ba07-0a3ed959374f",
       "AmplifyAppId": "d3h865pn607439"
-    },
-    "categories": {
-      "function": {
-        "wolfpackwireclonea942ae04": {
-          "deploymentBucketName": "amplify-wolfpackwireclone-dev-51446-deployment",
-          "s3Key": "amplify-builds/wolfpackwireclonea942ae04-4d4f767165632b686546-build.zip"
-        }
-      },
-      "api": {
-        "apida839c78": {}
-      }
     }
   }
 }
