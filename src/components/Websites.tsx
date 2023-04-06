@@ -1,5 +1,6 @@
 import Wolfpacker from "./Wolfpacker";
 import RSSAtom from "./RSSAtom";
+import RSS  from './RSS';
 interface RssList {
   url: string;
   title: string;
@@ -16,10 +17,13 @@ export function Websites({ isDarkMode, rssList }: WebsitesProps) {
     <div className="album py-5">
       <div className="row">
           <div className="col-md-4">
-            <Wolfpacker homepage="https://www.on3.com/teams/nc-state-wolfpack/" title="TheWolfpacker" isDarkMode={isDarkMode} />
+            <Wolfpacker homepage="https://www.on3.com/teams/nc-state-wolfpack/" title="The Wolfpacker" isDarkMode={isDarkMode} />
           </div>
           <div className="col-md-4">
-          <RSSAtom homepage="https://www.backingthepack.com/" url="https://www.backingthepack.com/rss/current.xml" title="BackingThePack" isDarkMode={isDarkMode} />
+          <RSSAtom homepage="https://www.backingthepack.com/" url="https://api.allorigins.win/raw?url=https%3A%2F%2Fwww.backingthepack.com%2Frss%2Fcurrent.xml" title="Backing The  Pack" isDarkMode={isDarkMode} />
+          </div>
+          <div className="col-md-4">
+          <RSS homepage="https://packinsider.com/" url="https://api.allorigins.win/raw?url=https%3A%2F%2Fpackinsider.com%2Ffeed%2F" title="Pack Insider" isDarkMode={isDarkMode} />
           </div>
       </div>
     </div>
