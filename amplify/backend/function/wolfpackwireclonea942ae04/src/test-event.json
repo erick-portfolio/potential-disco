@@ -1,0 +1,13 @@
+{
+    "body": "{}",
+    "headers": {},
+    "httpMethod": "GET",
+    "isBase64Encoded": false,
+    "path": "/",
+    "pathParameters": {},
+    "queryStringParameters": {},
+    "requestContext": {},
+    "resource": "",
+    "stageVariables": {}
+  }
+  

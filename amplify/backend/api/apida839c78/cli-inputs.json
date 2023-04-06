@@ -1,0 +1,12 @@
+{
+  "version": 1,
+  "paths": {
+    "/items": {
+      "name": "/items",
+      "lambdaFunction": "wolfpackwireclonea942ae04",
+      "permissions": {
+        "setting": "open"
+      }
+    }
+  }
+}
