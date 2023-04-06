@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
-import { API } from "aws-amplify";
 import "./RSS.css";
+import cheerio from "cheerio";
+import axios from "axios";
 
 interface WolfpackerItem {
   title: string;
@@ -21,31 +22,45 @@ function Wolfpacker({ homepage, title, isDarkMode }: WolfpackerProps) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
+    const urlRoot = "https://www.on3.com";
+    const urlPath = "/teams/nc-state-wolfpack";
+    const anyOrigin = "https://api.allorigins.win/raw?url=";
+    const url = anyOrigin + urlRoot + urlPath;
+
     async function fetchWolfpacker() {
       try {
-        let myInit = {
-          cache: true,
-          headers: {
-            "Content-type": "application/json",
-          },
-        };
-        const apiResponse = await API.get("apida839c78", "/items", myInit);
-        const feedArray = apiResponse.feedArray || [];
+        const response = await axios.get(url);
+        const $ = cheerio.load(response.data);
+        const feedArray: WolfpackerItem[] = [];
+        $("article.ArticleFeed_container__mAuAz").each((index, element) => {
+          const feed: WolfpackerItem = {
+            author: $(element)
+              .find(
+                ".ArticleFeed_authorblock__eesEX  .MuiTypography-root.MuiLink-root.MuiLink-underlineNone.ArticleFeed_name__OZ2nP.MuiTypography-caption.MuiTypography-colorPrimary"
+              )
+              .text(),
+            link:
+              urlRoot +
+              ($(element)
+                .find(
+                  "a.MuiTypography-root.MuiLink-root.MuiLink-underlineHover"
+                )
+                .attr("href") || ""),
+            pubDate: $(element)
+              .find(
+                ".MuiTypography-root.ArticleFeed_date__rTL2d.MuiTypography-caption.MuiTypography-colorTextPrimary"
+              )
+              .text(),
+            title: $(element)
+              .find(
+                ".MuiTypography-root.ArticleFeed_title__ct_XL.MuiTypography-h6.MuiTypography-colorTextPrimary"
+              )
+              .text(),
+          };
+          feedArray.push(feed);
+        });
 
-        const wolfpackerItems = feedArray.map(
-          (feedItem: {
-            title: string;
-            link: string;
-            pubDate: string;
-            author: string;
-          }) => ({
-            title: feedItem.title,
-            link: feedItem.link,
-            pubDate: feedItem.pubDate,
-            author: feedItem.author,
-          })
-        );
-        setItems(wolfpackerItems.slice(0, 6));
+        setItems(feedArray);
       } catch (error) {
         console.error("Error fetching RSS feed", error);
       } finally {
