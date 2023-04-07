@@ -73,7 +73,7 @@ function Wolfpacker({ homepage, title, isDarkMode }: WolfpackerProps) {
 
   return (
     <div className={`RSS`}>
-      <div style={{ marginBottom: "1rem" }}>
+      <div>
         <a href={homepage} style={{ textDecoration: "none" }}>
           <h1>{title}</h1>
         </a>

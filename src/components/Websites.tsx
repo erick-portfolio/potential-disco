@@ -31,8 +31,11 @@ export function Websites({ isDarkMode, rssList }: WebsitesProps) {
           <RSS homepage="https://gopack.com/" url="https://api.allorigins.win/raw?url=https://gopack.com/rss.aspx" title="Go Pack" isDarkMode={isDarkMode} />
           </div>
           <div className="col-md-4">
-          <PackCentral homepage="https://ncstate.rivals.com/" title="Wolfpack Central" isDarkMode={isDarkMode} />
+          <RSS homepage="https://bustingbrackets.com/acc/nc-state-wolfpack/" url="https://api.allorigins.win/raw?url=https://bustingbrackets.com/acc/nc-state-wolfpack/feed/" title="Busting Brackets" isDarkMode={isDarkMode} />
           </div>
+          {/* <div className="col-md-4">
+          <PackCentral homepage="https://ncstate.rivals.com/" title="Wolfpack Central" isDarkMode={isDarkMode} />
+          </div> */}
       </div>
     </div>
   );

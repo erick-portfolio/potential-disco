@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import "./RSS.css";
 import cheerio from "cheerio";
-import puppeteer from "puppeteer";
+import axios from "axios";
+
 
 interface PackCentralItem {
   title: string;
@@ -29,12 +30,11 @@ function PackCentral({ homepage, title, isDarkMode }: PackCentralProps) {
 
     async function fetchPackCentral() {
       try {
-        const browser = await puppeteer.launch();
-        const page = await browser.newPage();
-        await page.goto(url, { waitUntil: "networkidle2" });
-        const html = await page.content();
-        const $ = cheerio.load(html);
+        const response = await axios.get(url);
+        const $ = cheerio.load(response.data);
         const feedArray: PackCentralItem[] = [];
+        console.log('body');
+        console.log($('body').text());
 
         $(".ticker-article").each((index, element) => {
           console.log($(element).text());
@@ -66,16 +66,15 @@ function PackCentral({ homepage, title, isDarkMode }: PackCentralProps) {
         });
 
         setItems(feedArray.slice(0, 6));
-        setIsLoading(false);
-        await browser.close();
       } catch (error) {
         console.error("Error fetching RSS feed", error);
+      } finally {
+        setIsLoading(false);
       }
     }
 
     fetchPackCentral();
   }, []);
-
 
   return (
     <div className={`RSS`}>
