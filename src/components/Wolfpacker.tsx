@@ -32,34 +32,34 @@ function Wolfpacker({ homepage, title, isDarkMode }: WolfpackerProps) {
         const response = await axios.get(url);
         const $ = cheerio.load(response.data);
         const feedArray: WolfpackerItem[] = [];
-        $("article.ArticleFeed_container__mAuAz").each((index, element) => {
+        $("article").each((index, element) => {
           const feed: WolfpackerItem = {
             author: $(element)
               .find(
-                ".ArticleFeed_authorblock__eesEX  .MuiTypography-root.MuiLink-root.MuiLink-underlineNone.ArticleFeed_name__OZ2nP.MuiTypography-caption.MuiTypography-colorPrimary"
+                ".ArticleFeed_authorblock__eesEX  .MuiTypography-root.MuiLink-root.MuiLink-underlineNone.ArticleFeed_name__OZ2nP.MuiTypography-caption.MuiTypography-colorPrimary,  .ArticleCover_author__O0ZMp"
               )
               .text(),
             link:
               urlRoot +
               ($(element)
                 .find(
-                  "a.MuiTypography-root.MuiLink-root.MuiLink-underlineHover"
+                  "a.MuiTypography-root.MuiLink-root.MuiLink-underlineHover, .ArticleCover_titlelink__TvbbB"
                 )
                 .attr("href") || ""),
             pubDate: $(element)
               .find(
-                ".MuiTypography-root.ArticleFeed_date__rTL2d.MuiTypography-caption.MuiTypography-colorTextPrimary"
+                ".MuiTypography-root.ArticleFeed_date__rTL2d.MuiTypography-caption.MuiTypography-colorTextPrimary, .ArticleCover_time__vAnWk"
               )
               .text(),
             title: $(element)
               .find(
-                ".MuiTypography-root.ArticleFeed_title__ct_XL.MuiTypography-h6.MuiTypography-colorTextPrimary"
+                ".MuiTypography-root.ArticleFeed_title__ct_XL.MuiTypography-h6.MuiTypography-colorTextPrimary, .ArticleCover_title__7E2I0"
               )
               .text(),
           };
           feedArray.push(feed);
         });
-
+        
         setItems(feedArray.slice(0, 6));
       } catch (error) {
         console.error("Error fetching RSS feed", error);
@@ -105,7 +105,7 @@ function Wolfpacker({ homepage, title, isDarkMode }: WolfpackerProps) {
                 <a href={item.link}>{item.title}</a>
                 </Card.Title>
                 <Card.Subtitle className="mb-2 text-muted">
-                  {`${item.author} - ${item.pubDate}`}
+                  {`${item.author}${item.pubDate}`}
                 </Card.Subtitle>
               </Card.Body>
             </Card>

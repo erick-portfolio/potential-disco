@@ -8,7 +8,7 @@ interface RSSItem {
   title: string;
   link: string;
   pubDate: string;
-  content: string;
+  author: string;
 }
 
 interface RSSProps {
@@ -39,7 +39,10 @@ function RSS({ homepage, url, title, isDarkMode }: RSSProps) {
             title: item.querySelector("title")?.textContent ?? "",
             link: item.querySelector("link")?.textContent ?? "",
             pubDate: item.querySelector("pubDate")?.textContent ?? "",
-            content: item.querySelector("content")?.textContent ?? "",
+            author:
+              item.querySelector("author")?.textContent ??
+              item.querySelector("creator")?.textContent ??
+              "",
           });
         });
 
@@ -59,7 +62,13 @@ function RSS({ homepage, url, title, isDarkMode }: RSSProps) {
         <h1>{title}</h1>
       </Link>
       {isLoading ? (
-        <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
+        <div
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
@@ -77,24 +86,15 @@ function RSS({ homepage, url, title, isDarkMode }: RSSProps) {
                 <a href={item.link}>{item.title}</a>
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                {new Date(item.pubDate).toLocaleString()}
+                {new Date(item.pubDate).toLocaleString()}{" "}
+                {item.author && <span> by {item.author}</span>}
               </Card.Subtitle>
-              {item.content && (
-                <Card.Text
-                  dangerouslySetInnerHTML={{ __html: sanitizeHtml(item.content) }}
-                />
-              )}
             </Card.Body>
           </Card>
         ))
       )}
     </div>
   );
-}
-
-function sanitizeHtml(html: string) {
-  const doc = new DOMParser().parseFromString(html, "text/html");
-  return doc.documentElement.textContent || "";
 }
 
 export default RSS;

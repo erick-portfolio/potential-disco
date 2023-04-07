@@ -1,7 +1,6 @@
 import Wolfpacker from "./Wolfpacker";
 import RSSAtom from "./RSSAtom";
 import RSS  from './RSS';
-import PackCentral from "./PackCentral";
 
 interface RssList {
   url: string;
@@ -33,9 +32,6 @@ export function Websites({ isDarkMode, rssList }: WebsitesProps) {
           <div className="col-md-4">
           <RSS homepage="https://bustingbrackets.com/acc/nc-state-wolfpack/" url="https://api.allorigins.win/raw?url=https://bustingbrackets.com/acc/nc-state-wolfpack/feed/" title="Busting Brackets" isDarkMode={isDarkMode} />
           </div>
-          {/* <div className="col-md-4">
-          <PackCentral homepage="https://ncstate.rivals.com/" title="Wolfpack Central" isDarkMode={isDarkMode} />
-          </div> */}
       </div>
     </div>
   );
