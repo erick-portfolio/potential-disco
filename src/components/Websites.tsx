@@ -2,7 +2,7 @@ import Wolfpacker from "./Wolfpacker";
 import RSSAtom from "./RSSAtom";
 import RSS from "./RSS";
 import GoPack from "./GoPack";
-
+import CBSSports from "./CBSSports";
 interface RssList {
   url: string;
   title: string;
@@ -57,6 +57,14 @@ export function Websites({ isDarkMode, rssList }: WebsitesProps) {
           <Wolfpacker
             homepage="https://www.on3.com/teams/nc-state-wolfpack/"
             title="The Wolfpacker"
+            isDarkMode={isDarkMode}
+          />
+        </div>
+        <div className="col-md-4">
+          <CBSSports
+            homepage="https://www.cbssports.com/college-football/teams/NCST/nc-state-wolfpack/"
+            url="https://www.cbssports.com/college-football/teams/NCST/nc-state-wolfpack/"
+            title="CBS Sports"
             isDarkMode={isDarkMode}
           />
         </div>
