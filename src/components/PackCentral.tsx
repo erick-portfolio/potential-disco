@@ -2,8 +2,7 @@ import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import "./RSS.css";
 import cheerio from "cheerio";
-import axios from "axios";
-
+import { API } from "aws-amplify";
 
 interface PackCentralItem {
   title: string;
@@ -25,15 +24,14 @@ function PackCentral({ homepage, title, isDarkMode }: PackCentralProps) {
   useEffect(() => {
     const urlRoot = "https://ncstate.rivals.com";
     const urlPath = "/more_news ";
-    const anyOrigin = "https://api.allorigins.win/raw?url=";
-    const url = anyOrigin + urlRoot + urlPath;
+    const url = urlRoot + urlPath;
 
     async function fetchPackCentral() {
       try {
-        const response = await axios.get(url);
-        const $ = cheerio.load(response.data);
+        const responseRaw = await API.get("proxy", `/proxy?url=${encodeURIComponent(url)}`, {});
+        const response = responseRaw.feedContents.toString();
+        const $ = cheerio.load(response);
         const feedArray: PackCentralItem[] = [];
-        console.log('body');
         console.log($('body').text());
 
         $(".ticker-article").each((index, element) => {
