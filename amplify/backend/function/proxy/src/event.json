@@ -1,0 +1,11 @@
+{
+  "httpMethod": "GET",
+  "path": "/proxy",
+  "queryStringParameters": {
+    "url": "https://www.google.com/"
+  },
+  "headers": {
+    "Content-Type": "application/json"
+  },
+  "body": "{\"msg\":\"Hello from the event.json body\"}"
+}

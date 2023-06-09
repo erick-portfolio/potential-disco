@@ -1,8 +1,8 @@
 import "./RSS.css";
-
 import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { API } from "aws-amplify";
 
 interface RSSItem {
   title: string;
@@ -23,18 +23,18 @@ function RSS({ homepage, url, title, isDarkMode }: RSSProps) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    fetch(url)
-      .then((response) => {
-        return response.text();
-      })
-      .then((str) => {
-        return new window.DOMParser().parseFromString(str, "text/xml");
-      })
-      .then((data) => {
-        const items = data.querySelectorAll("item");
+    const fetchData = async () => {
+      try {
+        const apiResponseRaw = await API.get("proxy", `/proxy?url=${encodeURIComponent(url)}`, {});
+        const xmlData = apiResponseRaw.feedContents;
+
+        const parser = new DOMParser();
+        const xmlDoc = parser.parseFromString(xmlData, "text/xml");
+        const itemElements = xmlDoc.querySelectorAll("item");
+
         const rssItems: RSSItem[] = [];
 
-        items.forEach((item) => {
+        itemElements.forEach((item) => {
           rssItems.push({
             title: item.querySelector("title")?.textContent ?? "",
             link: item.querySelector("link")?.textContent ?? "",
@@ -47,28 +47,23 @@ function RSS({ homepage, url, title, isDarkMode }: RSSProps) {
         });
 
         setItems(rssItems.slice(0, 6));
-      })
-      .catch((error) => {
-        console.error("Error fetching RSS feed", error);
-      })
-      .finally(() => {
         setIsLoading(false);
-      });
+      } catch (error) {
+        console.error("Error fetching RSS feed", error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
   }, [url]);
 
   return (
-    <div className={`RSS`}>
+    <div className="RSS">
       <Link to={homepage} style={{ textDecoration: "none" }}>
         <h1>{title}</h1>
       </Link>
       {isLoading ? (
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
-        >
+        <div className="loading-spinner">
           <div className="spinner-border text-primary" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
@@ -78,7 +73,6 @@ function RSS({ homepage, url, title, isDarkMode }: RSSProps) {
           <Card
             key={index}
             className="mb-3"
-            // style background transparent
             style={{ backgroundColor: "transparent" }}
           >
             <Card.Body>

@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
 import "./RSS.css";
 import cheerio from "cheerio";
-import axios from "axios";
+import { API } from "aws-amplify";
 
 interface WolfpackerItem {
   title: string;
@@ -24,13 +24,13 @@ function Wolfpacker({ homepage, title, isDarkMode }: WolfpackerProps) {
   useEffect(() => {
     const urlRoot = "https://www.on3.com";
     const urlPath = "/teams/nc-state-wolfpack";
-    const anyOrigin = "https://api.allorigins.win/raw?url=";
-    const url = anyOrigin + urlRoot + urlPath;
+    const url = urlRoot + urlPath;
 
     async function fetchWolfpacker() {
       try {
-        const response = await axios.get(url);
-        const $ = cheerio.load(response.data);
+        const responseRaw = await API.get("proxy", `/proxy?url=${encodeURIComponent(url)}`, {});
+        const response = responseRaw.feedContents.toString();
+        const $ = cheerio.load(response);
         const feedArray: WolfpackerItem[] = [];
         $("article").each((index, element) => {
           const feed: WolfpackerItem = {
