@@ -31,7 +31,7 @@ function SiteFeed({ title, homepage, isDarkMode, items, isLoading, onRefresh }: 
         <h1>
           <div className="row">
             <div className="col-10">
-              <Link to={homepage} style={{ textDecoration: "none" }}>
+              <Link className="title-link" to={homepage} style={{ textDecoration: "none" }}>
                 {title}
               </Link>
             </div>
