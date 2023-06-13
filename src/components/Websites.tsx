@@ -3,6 +3,8 @@ import RSSAtom from "./RSSAtom";
 import RSS from "./RSS";
 import GoPack from "./GoPack";
 import CBSSports from "./CBSSports";
+import Technician from "./Technician";
+
 interface RssList {
   url: string;
   title: string;
@@ -34,9 +36,6 @@ export function Websites({ isDarkMode, rssList }: WebsitesProps) {
             isDarkMode={isDarkMode}
           />
         </div>
-        {/* <div className="col-md-4">
-          <RSS homepage="https://gopack.com/" url="https://gopack.com/rss.aspx" title="Go Pack" isDarkMode={isDarkMode} />
-          </div> */}
         <div className="col-md-4">
           <RSS
             homepage="https://bustingbrackets.com/acc/nc-state-wolfpack/"
@@ -65,6 +64,13 @@ export function Websites({ isDarkMode, rssList }: WebsitesProps) {
             homepage="https://www.cbssports.com/college-football/teams/NCST/nc-state-wolfpack/"
             url="https://www.cbssports.com/college-football/teams/NCST/nc-state-wolfpack/"
             title="CBS Sports"
+            isDarkMode={isDarkMode}
+          />
+        </div>
+        <div className="col-md-4">
+          <Technician
+            homepage="https://www.technicianonline.com/"
+            title="Technician"
             isDarkMode={isDarkMode}
           />
         </div>

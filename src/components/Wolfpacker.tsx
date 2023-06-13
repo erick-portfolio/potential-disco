@@ -51,6 +51,10 @@ function Wolfpacker({ homepage, title, isDarkMode }: WolfpackerProps) {
               .find(
                 ".MuiTypography-root.ArticleFeed_date__rTL2d.MuiTypography-caption.MuiTypography-colorTextPrimary, .ArticleCover_time__vAnWk"
               )
+              .clone()    //clone the element
+              .children() //select all the children
+              .remove()   //remove all the children
+              .end()  //again go back to selected element
               .text(),
             title: $(element)
               .find(

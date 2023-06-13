@@ -25,6 +25,15 @@ function SiteFeed({ title, homepage, isDarkMode, items, isLoading, onRefresh }: 
     }
   };
 
+  const formatDate = (pubDate: string) => {
+    const date = new Date(pubDate);
+    if (isNaN(date.getTime())) {
+      // If the date is invalid, return the original string
+      return pubDate;
+    }
+    return date.toLocaleString();
+  };
+
   return (
     <div className="RSS">
       <div className="header">
@@ -61,8 +70,7 @@ function SiteFeed({ title, homepage, isDarkMode, items, isLoading, onRefresh }: 
                 <a href={item.link}>{item.title}</a>
               </Card.Title>
               <Card.Subtitle className="mb-2 text-muted">
-                {new Date(item.pubDate).toLocaleString()}{" "}
-                {item.author && <span> by {item.author}</span>}
+                {formatDate(item.pubDate)} {item.author && <span> by {item.author}</span>}
               </Card.Subtitle>
             </Card.Body>
           </Card>
