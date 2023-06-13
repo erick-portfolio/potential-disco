@@ -4,6 +4,7 @@ import RSS from "./RSS";
 import GoPack from "./GoPack";
 import CBSSports from "./CBSSports";
 import Technician from "./Technician";
+import InsidePack from "./InsidePack";
 
 interface RssList {
   url: string;
@@ -71,6 +72,13 @@ export function Websites({ isDarkMode, rssList }: WebsitesProps) {
           <Technician
             homepage="https://www.technicianonline.com/"
             title="Technician"
+            isDarkMode={isDarkMode}
+          />
+        </div>
+        <div className="col-md-4">
+          <InsidePack
+            homepage="https://insidepacksports.com/"
+            title="Inside Pack Sports"
             isDarkMode={isDarkMode}
           />
         </div>
