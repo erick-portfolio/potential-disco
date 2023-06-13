@@ -32,7 +32,7 @@ function CBSSports({ homepage, url, title, isDarkMode }: CBSSportsProps) {
 
       itemElements.each((_index, element) => {
         const title = $(element).find(".NewsFeed-title").text().trim();
-        const link = $(element).find(".NewsFeed-title a").attr("href") || "";
+        const link = "https://cbssports.com/" + $(element).find(".NewsFeed-title a").attr("href") || "";
         const pubDate = $(element).find(".NewsFeed-date").text().trim();
         const author = $(element).find(".NewsFeed-author").text().trim();
 

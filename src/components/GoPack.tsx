@@ -27,7 +27,7 @@ function GoPack({ homepage, url, title, isDarkMode }: GoPackProps) {
       const jsonData = response.feedContents;
       const goPackItems: GoPackItem[] = jsonData.map((item: any) => ({
         title: item.title,
-        link: item.url,
+        link: "https://gopack.com" + item.url,
         pubDate: item.content_date,
         author: item.writer || "",
       }));
