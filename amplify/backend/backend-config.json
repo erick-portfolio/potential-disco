@@ -1,4 +1,10 @@
 {
+  "analytics": {
+    "wolfpackwireclone": {
+      "providerPlugin": "awscloudformation",
+      "service": "Pinpoint"
+    }
+  },
   "api": {
     "proxy": {
       "dependsOn": [
@@ -13,6 +19,24 @@
       ],
       "providerPlugin": "awscloudformation",
       "service": "API Gateway"
+    }
+  },
+  "auth": {
+    "wolfpackwireclone": {
+      "dependsOn": [],
+      "frontendAuthConfig": {
+        "mfaTypes": [],
+        "passwordProtectionSettings": {
+          "passwordPolicyCharacters": []
+        },
+        "signupAttributes": [],
+        "socialProviders": [],
+        "usernameAttributes": [],
+        "verificationMechanisms": []
+      },
+      "providerPlugin": "awscloudformation",
+      "service": "Cognito",
+      "serviceType": "managed"
     }
   },
   "function": {

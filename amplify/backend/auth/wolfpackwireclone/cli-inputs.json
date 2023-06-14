@@ -1,0 +1,12 @@
+{
+  "version": "1",
+  "cognitoConfig": {
+    "identityPoolName": "wolfpackwireclone_identitypool_2bd78a24",
+    "allowUnauthenticatedIdentities": true,
+    "authSelections": "identityPoolOnly",
+    "resourceName": "wolfpackwireclone",
+    "sharedId": "2bd78a24",
+    "serviceName": "Cognito",
+    "useDefault": "manual"
+  }
+}

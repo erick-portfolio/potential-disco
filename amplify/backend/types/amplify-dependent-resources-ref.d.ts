@@ -1,9 +1,22 @@
 export type AmplifyDependentResourcesAttributes = {
+  "analytics": {
+    "wolfpackwireclone": {
+      "Id": "string",
+      "Region": "string",
+      "appName": "string"
+    }
+  },
   "api": {
     "proxy": {
       "ApiId": "string",
       "ApiName": "string",
       "RootUrl": "string"
+    }
+  },
+  "auth": {
+    "wolfpackwireclone": {
+      "IdentityPoolId": "string",
+      "IdentityPoolName": "string"
     }
   },
   "function": {

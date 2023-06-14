@@ -1,0 +1,21 @@
+{
+    "appName": "wolfpackwireclone",
+    "roleName": "pinpointLambdaRole4b83e790",
+    "cloudformationPolicyName": "cloudformationPolicy4b83e790",
+    "cloudWatchPolicyName": "cloudWatchPolicy4b83e790",
+    "pinpointPolicyName": "pinpointPolicy4b83e790",
+    "authPolicyName": "pinpoint_amplify_4b83e790",
+    "unauthPolicyName": "pinpoint_amplify_4b83e790",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

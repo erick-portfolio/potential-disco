@@ -20,6 +20,12 @@
       },
       "api": {
         "proxy": {}
+      },
+      "auth": {
+        "wolfpackwireclone": {}
+      },
+      "analytics": {
+        "wolfpackwireclone": {}
       }
     }
   }
