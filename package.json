@@ -8,7 +8,7 @@
     "@types/aws-lambda": "^8.10.114",
     "@types/react": "^18.0.31",
     "@types/react-dom": "^18.0.11",
-    "aws-amplify": "^5.0.24",
+    "aws-amplify": "^5.2.6",
     "aws-lambda": "^1.0.7",
     "bootstrap": "^5.2.3",
     "bootstrap-icons": "^1.10.5",
