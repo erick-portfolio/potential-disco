@@ -22,16 +22,16 @@ export function Content({ isDarkMode, twitterFeedConfig, rssConfig }: ContentPro
     >
       <div className="">
         <div className="row">
-          <div className="col-md-10">
+          <div className="col-md-12">
             <Websites
               isDarkMode={isDarkMode}
               rssList={rssConfig}
             />
           </div>
-          <div className="col-md-2">
+          {/* <div className="col-md-2">
             <Feed isDarkMode={isDarkMode}
             dataSource={twitterFeedConfig} />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

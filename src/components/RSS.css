@@ -7,11 +7,11 @@
 }
 
 .title-link {
-  color: #6c757d !important;
+  color: #6c757d;
 }
 
 .title-link:hover {
-  color: #6c757d !important;
+  color: #6c757d;
 }
 
 .card-text {
@@ -27,9 +27,9 @@ h1 {
 }
 
 .card {
-  --bs-card-bg: inherit !important;
-  color: #6c757d !important;
+  --bs-card-bg: inherit;
+  color: #6c757d;
 
 }
-.card-body > a:link { text-decoration: none !important; }
+.card-body > a:link { text-decoration: none; }
 
