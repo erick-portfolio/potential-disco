@@ -25,11 +25,3 @@
 h1 {
   color: #6c757d;
 }
-
-.card {
-  --bs-card-bg: inherit;
-  color: #6c757d;
-
-}
-.card-body > a:link { text-decoration: none; }
-
