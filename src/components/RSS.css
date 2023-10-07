@@ -1,8 +1,8 @@
-.RSS a {
+.card-title {
   color: #d9534f;
 }
 
-.RSS a:hover {
+.card-title:hover {
   color: #ac2925;
 }
 
@@ -14,14 +14,22 @@
   color: #6c757d !important;
 }
 
-.RSS .card-text {
+.card-text {
   margin-top: 1rem;
 }
 
-.RSS .card-text p:first-child {
+.card-text p:first-child {
   margin-top: 0;
 }
 
 h1 {
   color: #6c757d;
 }
+
+.card {
+  --bs-card-bg: inherit !important;
+  color: #6c757d !important;
+
+}
+.card-body > a:link { text-decoration: none !important; }
+

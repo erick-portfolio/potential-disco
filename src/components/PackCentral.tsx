@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { API } from "aws-amplify";
-import SiteFeed, { RSSItem } from "./SiteFeed";
+import SiteFeed from "./SiteFeed";
 
 interface PackCentralItem {
   title: string;
@@ -32,7 +32,7 @@ function PackCentral({ homepage, title, isDarkMode }: PackCentralProps) {
       // Parsing logic using cheerio
       // ...
 
-      setItems(feedArray.slice(0, 6));
+      setItems(feedArray);
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching RSS feed", error);
