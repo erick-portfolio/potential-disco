@@ -74,7 +74,8 @@
 }
 
 /* Style the card title */
-#schedule .card-title {
+#schedule .card-title a {
+    color: #ac2925;
     font-size: 20px;
     font-weight: bold;
 }
