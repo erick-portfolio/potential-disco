@@ -209,22 +209,30 @@ interface IRequestedSeason {
   displayName: string;
 }
 
-function EventCard({ event }: { event: IEventsItem }) {
+function EventCard({ event, isNextGame }: { event: IEventsItem; isNextGame: boolean }) {
   return (
-    <Card key={event.id} className="mb-3">
+    <Card key={event.id} className={`mb-3 ${isNextGame ? 'active' : ''}`}>
       <Card.Body>
-        <Card.Title><Link to={event.links[0]?.href} target="_blank" rel="noopener noreferrer">{event.shortName}</Link></Card.Title>
+        <Card.Title>
+          <Link to={event.links[0]?.href} target="_blank" rel="noopener noreferrer">
+            {event.shortName}
+          </Link>
+        </Card.Title>
         <Card.Text className="mb-2 text-muted">
-          <strong>Date: </strong>{new Date(event.date).toLocaleString()}
+          <strong>Date: </strong>
+          {new Date(event.date).toLocaleString()}
         </Card.Text>
         <Card.Text>
           <strong>Score: </strong>
-          {event.competitions[0]?.competitors[0]?.score?.value !== undefined
-            ? `${event.competitions[0].competitors[0].score.value} - `
-            : ''}
-          {event.competitions[0]?.competitors[1]?.score?.value !== undefined
-            ? event.competitions[0].competitors[1].score.value
-            : ''}
+          {event.competitions[0]?.competitors[0]?.team.abbreviation}{' '}
+          {event.competitions[0]?.competitors[0]?.score?.value
+            ? event.competitions[0]?.competitors[0]?.score?.value
+            : 0}{' '}
+          -{' '}
+          {event.competitions[0]?.competitors[1]?.team.abbreviation}{' '}
+          {event.competitions[0]?.competitors[1]?.score?.value
+            ? event.competitions[0]?.competitors[0]?.score?.value
+            : 0}
         </Card.Text>
         <Card.Text>
           <strong>Venue:</strong> {event.competitions[0]?.venue?.fullName || 'N/A'}
@@ -233,10 +241,62 @@ function EventCard({ event }: { event: IEventsItem }) {
           <strong>Attendance:</strong> {event.competitions[0]?.attendance || 'N/A'}
         </Card.Text>
         <Card.Text>
-          <strong>TV Broadcast:</strong> {event.competitions[0].broadcasts[0]?.media.shortName || 'N/A'}
+          <strong>TV Broadcast:</strong>{' '}
+          {event.competitions[0].broadcasts[0]?.media.shortName || 'N/A'}
         </Card.Text>
       </Card.Body>
     </Card>
+  );
+}
+
+function ScheduleTab({
+  events,
+  showPreviousGames,
+  toggleShowPreviousGames,
+  isDarkMode,
+}: {
+  events: IEventsItem[];
+  showPreviousGames: boolean;
+  toggleShowPreviousGames: () => void;
+  isDarkMode: boolean;
+}) {
+  const currentDate = new Date();
+
+  const filterEvents = (events: IEventsItem[]) => {
+    let nextGameFound = false;
+    return events.filter((event) => {
+      const eventDate = new Date(event.date);
+      if (showPreviousGames) {
+        return true;
+      }
+      if (!nextGameFound && eventDate >= currentDate) {
+        nextGameFound = true;
+        return true;
+      }
+      return false;
+    });
+  };
+
+  const filteredEvents = filterEvents(events);
+
+  return (
+    <div>
+      {filteredEvents.length === 0 ? (
+        <div className="schedule-message">No upcoming games.</div>
+      ) : (
+        filteredEvents.map((event: IEventsItem, index) => (
+          <div>
+            <button
+              className={`btn btn-outline-${isDarkMode ? 'light' : 'dark'}`}
+              onClick={toggleShowPreviousGames}
+            >
+              {showPreviousGames ? 'Show Current Game' : 'Show All Games'}
+            </button>
+            <EventCard event={event} key={event.id} isNextGame={index === 0} />
+          </div>
+        ))
+      )}
+    </div>
   );
 }
 
@@ -244,6 +304,8 @@ export function Schedule({ isDarkMode }: ScheduleProps) {
   const [footballSchedule, setFootballSchedule] = useState<IRootObject | null>(null);
   const [basketballSchedule, setBasketballSchedule] = useState<IRootObject | null>(null);
   const [activeTab, setActiveTab] = useState<string>('football');
+  const [showPreviousFootballGames, setShowPreviousFootballGames] = useState(false);
+  const [showPreviousBasketballGames, setShowPreviousBasketballGames] = useState(false);
 
   useEffect(() => {
     // Fetch football data
@@ -263,6 +325,14 @@ export function Schedule({ isDarkMode }: ScheduleProps) {
     return <div>Loading...</div>;
   }
 
+  const toggleShowPreviousFootballGames = () => {
+    setShowPreviousFootballGames(!showPreviousFootballGames);
+  };
+
+  const toggleShowPreviousBasketballGames = () => {
+    setShowPreviousBasketballGames(!showPreviousBasketballGames);
+  };
+
   return (
     <div className={`mt-5 ${isDarkMode ? 'dark' : 'light'}`} id="schedule">
       <h1>NC State Schedules</h1>
@@ -272,31 +342,24 @@ export function Schedule({ isDarkMode }: ScheduleProps) {
         onSelect={(key) => setActiveTab(key || 'football')}
       >
         <Tab eventKey="football" title="Football">
-          <div>
-            {footballSchedule.events.length === 0 ? (
-              <div className="schedule-message">Schedule will be updated soon.</div>
-            ) : (
-              footballSchedule.events.map((event: IEventsItem) => (
-                <EventCard event={event} key={event.id} />
-              ))
-            )}
-          </div>
+          <ScheduleTab
+            events={footballSchedule.events}
+            showPreviousGames={showPreviousFootballGames}
+            toggleShowPreviousGames={toggleShowPreviousFootballGames}
+            isDarkMode={isDarkMode}
+          />
         </Tab>
         <Tab eventKey="basketball" title="Basketball">
-          <div>
-            {basketballSchedule.events.length === 0 ? (
-              <div className="schedule-message">Schedule will be updated soon.</div>
-            ) : (
-              basketballSchedule.events.map((event: IEventsItem) => (
-                <EventCard event={event} key={event.id} />
-              ))
-            )}
-          </div>
+          <ScheduleTab
+            events={basketballSchedule.events}
+            showPreviousGames={showPreviousBasketballGames}
+            toggleShowPreviousGames={toggleShowPreviousBasketballGames}
+            isDarkMode={isDarkMode}
+          />
         </Tab>
       </Tabs>
     </div>
   );
 }
-
 
 export default Schedule;
