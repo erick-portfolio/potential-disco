@@ -213,7 +213,7 @@ function EventCard({ event }: { event: IEventsItem }) {
   return (
     <Card key={event.id} className="mb-3">
       <Card.Body>
-        <Card.Title><Link to={event.links[0]?.href}>{event.shortName}</Link></Card.Title>
+        <Card.Title><Link to={event.links[0]?.href} target="_blank" rel="noopener noreferrer">{event.shortName}</Link></Card.Title>
         <Card.Text className="mb-2 text-muted">
           <strong>Date: </strong>{new Date(event.date).toLocaleString()}
         </Card.Text>

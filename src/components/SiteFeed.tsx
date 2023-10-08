@@ -39,6 +39,7 @@ function SiteFeed({
       <Card.Body>
       <Link
       to={item.link}
+      target="_blank" rel="noopener noreferrer"
       >
         <Card.Title>{item.title}</Card.Title>
         </Link>
@@ -60,6 +61,7 @@ function SiteFeed({
               <Link 
                 className="title-link"
                 to={homepage}
+                target="_blank" rel="noopener noreferrer"
               >
                 {title}
               </Link>
