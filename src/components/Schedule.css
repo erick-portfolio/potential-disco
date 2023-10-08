@@ -1,0 +1,98 @@
+/* Add your custom styles here */
+
+/* Style the main container */
+#schedule .mt-5 {
+    padding: 20px;
+}
+
+/* Style the page title */
+#schedule h1 {
+    font-size: 21px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+/* Style the tabs container */
+#schedule  #schedule-tabs {
+    border: none;
+}
+
+/* Style the tab headers */
+#schedule .nav-tabs .nav-link {
+    /* Light gray background */
+    color: #6c757d;
+    /* Dark text color */
+    margin-right: 10px;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+
+}
+
+#schedule.dark .nav-tabs {
+    border-bottom: 1px solid #6c757d;
+}
+
+/* Style the active tab */
+#schedule.dark .nav-tabs .nav-link.active {
+    background-color: #212529;
+    /* Blue background for active tab */
+    color: #fff;
+    /* White text color for active tab */
+}
+
+/* Style the active tab */
+#schedule.dark .nav-tabs .nav-link {
+    border:1px solid #6c757d;
+}
+
+#schedule.light .nav-tabs .nav-link.active {
+    background-color: #f8f9fa;
+    /* Blue background for active tab */
+    color: #111;
+    /* White text color for active tab */
+}
+#schedule.light .nav-tabs .nav-link {
+    background-color: rgba(255, 255, 255, 0.55);
+    /* Blue background for active tab */
+    color: #111;
+    /* White text color for active tab */
+    border:1px solid #6c757d;
+}
+
+/* Style the tab content */
+#schedule .tab-content {
+    padding: 20px 0;
+}
+
+/* Style the cards */
+#schedule .card {
+    border: none;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the card title */
+#schedule .card-title {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+/* Style the card subtitle */
+#schedule .card-subtitle {
+    color: #666;
+    margin-bottom: 10px;
+}
+
+/* Style the card text */
+#schedule .card-text {
+    font-size: 16px;
+}
+
+/* Style the loading message */
+#schedule .loading {
+    text-align: center;
+    font-size: 18px;
+    margin-top: 20px;
+}

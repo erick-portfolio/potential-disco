@@ -4,3 +4,4 @@ export * from './Content';
 export * from './Websites';
 export * from './Feed';
 export * from './Wolfpacker';
+export * from './Schedule';
