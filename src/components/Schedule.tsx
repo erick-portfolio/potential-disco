@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Card, Tab, Tabs } from 'react-bootstrap';
 
-import "./Schedule.css";
+import './Schedule.css';
 
 interface ScheduleProps {
   isDarkMode: boolean;
@@ -40,46 +40,54 @@ export function Schedule({ isDarkMode }: ScheduleProps) {
       >
         <Tab eventKey="football" title="Football">
           <div>
-            {footballData.events.map((event: any) => (
-              <Card key={event.id} className="mb-3">
-                <Card.Body>
-                  <Card.Title>{event.shortName}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    {new Date(event.date).toLocaleString()}
-                  </Card.Subtitle>
-                  <Card.Text>
-                    {event.competitions[0]?.competitors[0]?.score?.value !== undefined
-                      ? `${event.competitions[0].competitors[0].score.value} - `
-                      : ''}
-                    {event.competitions[0]?.competitors[1]?.score?.value !== undefined
-                      ? event.competitions[0].competitors[1].score.value
-                      : ''}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            ))}
+            {footballData.events.length === 0 ? (
+              <div className="schedule-message">Schedule will be updated soon.</div>
+            ) : (
+              footballData.events.map((event: any) => (
+                <Card key={event.id} className="mb-3">
+                  <Card.Body>
+                    <Card.Title>{event.shortName}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">
+                      {new Date(event.date).toLocaleString()}
+                    </Card.Subtitle>
+                    <Card.Text>
+                      {event.competitions[0]?.competitors[0]?.score?.value !== undefined
+                        ? `${event.competitions[0].competitors[0].score.value} - `
+                        : ''}
+                      {event.competitions[0]?.competitors[1]?.score?.value !== undefined
+                        ? event.competitions[0].competitors[1].score.value
+                        : ''}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              ))
+            )}
           </div>
         </Tab>
         <Tab eventKey="basketball" title="Basketball">
           <div>
-            {basketballData.events.map((event: any) => (
-              <Card key={event.id} className="mb-3">
-                <Card.Body>
-                  <Card.Title>{event.shortName}</Card.Title>
-                  <Card.Subtitle className="mb-2 text-muted">
-                    {new Date(event.date).toLocaleString()}
-                  </Card.Subtitle>
-                  <Card.Text>
-                    {event.competitions[0]?.competitors[0]?.score?.value !== undefined
-                      ? `${event.competitions[0].competitors[0].score.value} - `
-                      : ''}
-                    {event.competitions[0]?.competitors[1]?.score?.value !== undefined
-                      ? event.competitions[0].competitors[1].score.value
-                      : ''}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            ))}
+            {basketballData.events.length === 0 ? (
+              <div className="schedule-message">Schedule will be updated soon.</div>
+            ) : (
+              basketballData.events.map((event: any) => (
+                <Card key={event.id} className="mb-3">
+                  <Card.Body>
+                    <Card.Title>{event.shortName}</Card.Title>
+                    <Card.Subtitle className="mb-2 text-muted">
+                      {new Date(event.date).toLocaleString()}
+                    </Card.Subtitle>
+                    <Card.Text>
+                      {event.competitions[0]?.competitors[0]?.score?.value !== undefined
+                        ? `${event.competitions[0].competitors[0].score.value} - `
+                        : ''}
+                      {event.competitions[0]?.competitors[1]?.score?.value !== undefined
+                        ? event.competitions[0].competitors[1].score.value
+                        : ''}
+                    </Card.Text>
+                  </Card.Body>
+                </Card>
+              ))
+            )}
           </div>
         </Tab>
       </Tabs>
