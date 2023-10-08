@@ -209,6 +209,37 @@ interface IRequestedSeason {
   displayName: string;
 }
 
+function EventCard({ event }: { event: IEventsItem }) {
+  return (
+    <Card key={event.id} className="mb-3">
+      <Card.Body>
+        <Card.Title><Link to={event.links[0]?.href}>{event.shortName}</Link></Card.Title>
+        <Card.Text className="mb-2 text-muted">
+          <strong>Date: </strong>{new Date(event.date).toLocaleString()}
+        </Card.Text>
+        <Card.Text>
+          <strong>Score: </strong>
+          {event.competitions[0]?.competitors[0]?.score?.value !== undefined
+            ? `${event.competitions[0].competitors[0].score.value} - `
+            : ''}
+          {event.competitions[0]?.competitors[1]?.score?.value !== undefined
+            ? event.competitions[0].competitors[1].score.value
+            : ''}
+        </Card.Text>
+        <Card.Text>
+          <strong>Venue:</strong> {event.competitions[0]?.venue?.fullName || 'N/A'}
+        </Card.Text>
+        <Card.Text>
+          <strong>Attendance:</strong> {event.competitions[0]?.attendance || 'N/A'}
+        </Card.Text>
+        <Card.Text>
+          <strong>TV Broadcast:</strong> {event.competitions[0].broadcasts[0]?.media.shortName || 'N/A'}
+        </Card.Text>
+      </Card.Body>
+    </Card>
+  );
+}
+
 export function Schedule({ isDarkMode }: ScheduleProps) {
   const [footballSchedule, setFootballSchedule] = useState<IRootObject | null>(null);
   const [basketballSchedule, setBasketballSchedule] = useState<IRootObject | null>(null);
@@ -231,6 +262,7 @@ export function Schedule({ isDarkMode }: ScheduleProps) {
   if (footballSchedule === null || basketballSchedule === null) {
     return <div>Loading...</div>;
   }
+
   return (
     <div className={`mt-5 ${isDarkMode ? 'dark' : 'light'}`} id="schedule">
       <h1>NC State Schedules</h1>
@@ -245,32 +277,7 @@ export function Schedule({ isDarkMode }: ScheduleProps) {
               <div className="schedule-message">Schedule will be updated soon.</div>
             ) : (
               footballSchedule.events.map((event: IEventsItem) => (
-                <Card key={event.id} className="mb-3">
-                  <Card.Body>
-                    <Card.Title><Link to={event.links[0]?.href}>{event.shortName}</Link></Card.Title>
-                    <Card.Text className="mb-2 text-muted">
-                      <strong>Date: </strong>{new Date(event.date).toLocaleString()}
-                    </Card.Text>
-                    <Card.Text>
-                      <strong>Score: </strong>
-                      {event.competitions[0]?.competitors[0]?.score?.value !== undefined
-                        ? `${event.competitions[0].competitors[0].score.value} - `
-                        : ''}
-                      {event.competitions[0]?.competitors[1]?.score?.value !== undefined
-                        ? event.competitions[0].competitors[1].score.value
-                        : ''}
-                    </Card.Text>
-                    <Card.Text>
-                      <strong>Venue:</strong> {event.competitions[0]?.venue?.fullName || 'N/A'}
-                    </Card.Text>
-                    <Card.Text>
-                      <strong>Attendance:</strong> {event.competitions[0]?.attendance || 'N/A'}
-                    </Card.Text>
-                    <Card.Text>
-                      <strong>TV Broadcast:</strong> {event.competitions[0].broadcasts[0]?.media.shortName || 'N/A'}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
+                <EventCard event={event} key={event.id} />
               ))
             )}
           </div>
@@ -281,28 +288,7 @@ export function Schedule({ isDarkMode }: ScheduleProps) {
               <div className="schedule-message">Schedule will be updated soon.</div>
             ) : (
               basketballSchedule.events.map((event: IEventsItem) => (
-                <Card key={event.id} className="mb-3">
-                  <Card.Body>
-                    <Card.Title>{event.shortName}</Card.Title>
-                    <Card.Subtitle className="mb-2 text-muted">
-                      {new Date(event.date).toLocaleString()}
-                    </Card.Subtitle>
-                    <Card.Text>
-                      {event.competitions[0]?.competitors[0]?.score?.value !== undefined
-                        ? `${event.competitions[0].competitors[0].score.value} - `
-                        : ''}
-                      {event.competitions[0]?.competitors[1]?.score?.value !== undefined
-                        ? event.competitions[0].competitors[1].score.value
-                        : ''}
-                    </Card.Text>
-                    <Card.Text>
-                      <strong>Venue:</strong> {event.competitions[0]?.venue?.fullName || 'N/A'}
-                    </Card.Text>
-                    <Card.Text>
-                      <strong>Attendance:</strong> {event.competitions[0]?.attendance || 'N/A'}
-                    </Card.Text>
-                  </Card.Body>
-                </Card>
+                <EventCard event={event} key={event.id} />
               ))
             )}
           </div>
@@ -310,7 +296,6 @@ export function Schedule({ isDarkMode }: ScheduleProps) {
       </Tabs>
     </div>
   );
-
 }
 
 
