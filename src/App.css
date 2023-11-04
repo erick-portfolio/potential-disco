@@ -9,5 +9,12 @@
   
   .App.dark-mode .card {
     border-color: #2f3336;
+    --bs-card-bg: inherit;
+    color: #6c757d;
   }
   
+.card-body > a:link { text-decoration: none; }
+
+.card {
+  min-height: 120px;
+}

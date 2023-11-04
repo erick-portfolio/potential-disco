@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
-import SiteFeed, { RSSItem } from "./SiteFeed";
+import SiteFeed from "./SiteFeed";
 import "./RSS.css";
 import cheerio from "cheerio";
 import { API } from "aws-amplify";
@@ -64,7 +63,7 @@ function Wolfpacker({ homepage, title, isDarkMode }: WolfpackerProps) {
         feedArray.push(feed);
       });
 
-      setItems(feedArray.slice(0, 6));
+      setItems(feedArray);
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching RSS feed", error);

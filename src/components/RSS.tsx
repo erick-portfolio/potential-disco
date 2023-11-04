@@ -1,8 +1,10 @@
 import "./RSS.css";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
 import { API } from "aws-amplify";
-import SiteFeed, { RSSItem } from "./SiteFeed";
+
+import SiteFeed from "./SiteFeed";
+
+import { RSSItem } from "./types";
 
 interface RSSProps {
   url: string;
@@ -12,75 +14,62 @@ interface RSSProps {
 }
 
 function RSS({ homepage, url, title, isDarkMode }: RSSProps) {
+
   const [items, setItems] = useState<RSSItem[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const apiResponseRaw = await API.get("proxy", `/proxy?url=${encodeURIComponent(url)}`, {});
-        const xmlData = apiResponseRaw.feedContents;
-
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlData, "text/xml");
-        const itemElements = xmlDoc.querySelectorAll("item");
-
-        const rssItems: RSSItem[] = [];
-
-        itemElements.forEach((item) => {
-          rssItems.push({
-            title: item.querySelector("title")?.textContent ?? "",
-            link: item.querySelector("link")?.textContent ?? "",
-            pubDate: item.querySelector("pubDate")?.textContent ?? "",
-            author:
-              item.querySelector("author")?.textContent ??
-              item.querySelector("creator")?.textContent ??
-              "",
-          });
-        });
-
-        setItems(rssItems.slice(0, 6));
-        setIsLoading(false);
-      } catch (error) {
-        console.error("Error fetching RSS feed", error);
-        setIsLoading(false);
-      }
-    };
-
-    fetchData();
-  }, [url]);
-
-  const handleRefresh = async () => {
-    setIsLoading(true);
+  const fetchItems = async () => {
     try {
-      const apiResponseRaw = await API.get("proxy", `/proxy?url=${encodeURIComponent(url)}`, {});
-      const xmlData = apiResponseRaw.feedContents;
+      const response = await API.get("proxy", `/proxy?url=${encodeURIComponent(url)}`, {});
+      const xml = response.feedContents;
 
-      const parser = new DOMParser();
-      const xmlDoc = parser.parseFromString(xmlData, "text/xml");
-      const itemElements = xmlDoc.querySelectorAll("item");
+      const doc = new DOMParser().parseFromString(xml, "text/xml");
+      const newItems = parseItems(doc);
 
-      const rssItems: RSSItem[] = [];
-
-      itemElements.forEach((item) => {
-        rssItems.push({
-          title: item.querySelector("title")?.textContent ?? "",
-          link: item.querySelector("link")?.textContent ?? "",
-          pubDate: item.querySelector("pubDate")?.textContent ?? "",
-          author:
-            item.querySelector("author")?.textContent ??
-            item.querySelector("creator")?.textContent ??
-            "",
-        });
-      });
-
-      setItems(rssItems.slice(0, 6));
+      setItems(newItems);
     } catch (error) {
-      console.error("Error fetching RSS feed", error);
+      console.error(error);
     } finally {
       setIsLoading(false);
     }
-  };
+  }
+
+  const parseItems = (doc: XMLDocument) => {
+
+    const elements = doc.querySelectorAll("item");
+    const items = [];
+
+    for (let i = 0; i < elements.length; i++) {
+      items.push(mapItem(elements[i]));
+    }
+
+    return items;
+
+  }
+
+  const mapItem = (element: Element) => {
+    return {
+      title: getText(element, "title"),
+      link: getText(element, "link"),
+      pubDate: getText(element, "pubDate"),
+      author: getText(element, "author") ?? getText(element, "creator")
+    };
+  }
+
+  const getText = (element: Element, name: string) => {
+    const node = element.querySelector(name);
+    return node?.textContent ?? "";
+  }
+
+  useEffect(() => {
+    fetchItems();
+  }, [url]);
+
+  const handleRefresh = () => {
+    setIsLoading(true);
+    fetchItems();
+  }
+
 
   return (
     <SiteFeed

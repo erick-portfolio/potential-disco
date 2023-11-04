@@ -2,7 +2,7 @@ import "./RSS.css";
 import { useEffect, useState } from "react";
 import { API } from "aws-amplify";
 import cheerio from "cheerio";
-import SiteFeed, { RSSItem } from "./SiteFeed";
+import SiteFeed from "./SiteFeed";
 
 interface CBSSportsItem {
   title: string;
@@ -45,7 +45,7 @@ function CBSSports({ homepage, url, title, isDarkMode }: CBSSportsProps) {
         rssItems.push(rssItem);
       });
 
-      setItems(rssItems.slice(0, 6));
+      setItems(rssItems);
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching RSS feed", error);

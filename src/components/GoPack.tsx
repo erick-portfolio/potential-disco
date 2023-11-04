@@ -1,7 +1,7 @@
 import "./RSS.css";
 import { useEffect, useState } from "react";
 import { API } from "aws-amplify";
-import SiteFeed, { RSSItem } from "./SiteFeed";
+import SiteFeed from "./SiteFeed";
 
 interface GoPackItem {
   title: string;
@@ -32,7 +32,7 @@ function GoPack({ homepage, url, title, isDarkMode }: GoPackProps) {
         author: item.writer || "",
       }));
 
-      setItems(goPackItems.slice(0, 6));
+      setItems(goPackItems);
       setIsLoading(false);
     } catch (error) {
       console.error("Error fetching RSS feed", error);

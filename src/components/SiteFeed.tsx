@@ -1,57 +1,85 @@
-import { Card, Button } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Fragment } from 'react';
+import { Card, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import { ArrowClockwise } from 'react-bootstrap-icons';
 
-export interface RSSItem {
-  title: string;
-  link: string;
-  pubDate: string;
-  author: string;
-}
+import { RSSItem } from './types';
 
-interface SiteFeedProps {
+import './RSS.css';
+
+interface Props {
   title: string;
   homepage: string;
   isDarkMode: boolean;
   items: RSSItem[];
   isLoading: boolean;
-  onRefresh: () => void; // Add onRefresh prop
+  onRefresh: () => void;
 }
 
-function SiteFeed({ title, homepage, isDarkMode, items, isLoading, onRefresh }: SiteFeedProps) {
-  const handleRefresh = () => {
-    if (onRefresh) {
-      onRefresh(); // Call the onRefresh callback prop
-    }
-  };
+function SiteFeed({
+  title,
+  homepage,
+  isDarkMode,
+  items,
+  isLoading,
+  onRefresh  
+}: Props) {
 
-  const formatDate = (pubDate: string) => {
-    const date = new Date(pubDate);
-    if (isNaN(date.getTime())) {
-      // If the date is invalid, return the original string
-      return pubDate;
-    }
-    return date.toLocaleString();
+  const handleRefresh = () => {
+    onRefresh();
   };
+  
+  const formatDate = (date: string) => {
+    const pubDate = new Date(date);
+    return isNaN(pubDate.getTime()) ? date : pubDate.toLocaleString();
+  }
+
+  const FeedCard = ({ item }: { item: RSSItem }) => (
+    <Card className="feed-card">
+      <Card.Body>
+      <Link
+      to={item.link}
+      target="_blank" rel="noopener noreferrer"
+      >
+        <Card.Title>{item.title}</Card.Title>
+        </Link>
+        <Card.Subtitle>
+          {formatDate(item.pubDate)}
+          {item.author && <span> by {item.author}</span>}
+        </Card.Subtitle>
+      </Card.Body>
+    </Card>
+  );
 
   return (
-    <div className="RSS">
-      <div className="header">
+    <Fragment>
+
+      <div className="feed-header">
         <h1>
           <div className="row">
             <div className="col-10">
-              <Link className="title-link" to={homepage} style={{ textDecoration: "none" }}>
+              <Link 
+                className="title-link"
+                to={homepage}
+                target="_blank" rel="noopener noreferrer"
+              >
                 {title}
               </Link>
             </div>
+
             <div className="col-2">
-              <Button onClick={handleRefresh} variant={!isDarkMode ? "light" : "dark"} className="refresh-button">
+              <Button 
+                variant={isDarkMode ? 'dark' : 'light'}
+                className="refresh-btn"
+                onClick={handleRefresh}
+              >
                 <ArrowClockwise />
               </Button>
             </div>
           </div>
         </h1>
       </div>
+
       {isLoading ? (
         <div className="loading-spinner">
           <div className="spinner-border text-primary" role="status">
@@ -59,24 +87,15 @@ function SiteFeed({ title, homepage, isDarkMode, items, isLoading, onRefresh }: 
           </div>
         </div>
       ) : (
-        items.map((item, index) => (
-          <Card
-            key={index}
-            className="mb-3"
-            style={{ backgroundColor: "transparent" }}
-          >
-            <Card.Body>
-              <Card.Title>
-                <a href={item.link}>{item.title}</a>
-              </Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">
-                {formatDate(item.pubDate)} {item.author && <span> by {item.author}</span>}
-              </Card.Subtitle>
-            </Card.Body>
-          </Card>
+        items.slice(0,6).map(item => (
+          <FeedCard 
+            key={item.link}
+            item={item}
+          />
         ))
       )}
-    </div>
+
+    </Fragment>
   );
 }
 

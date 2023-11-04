@@ -1,4 +1,4 @@
-import { Websites, Feed } from ".";
+import { Websites, Feed, Schedule } from ".";
 
 interface ContentProps {
   isDarkMode: boolean;
@@ -29,8 +29,9 @@ export function Content({ isDarkMode, twitterFeedConfig, rssConfig }: ContentPro
             />
           </div>
           <div className="col-md-2">
-            <Feed isDarkMode={isDarkMode}
-            dataSource={twitterFeedConfig} />
+            {/* <Feed isDarkMode={isDarkMode}
+            dataSource={twitterFeedConfig} /> */}
+            <Schedule isDarkMode={isDarkMode} />
           </div>
         </div>
       </div>
