@@ -210,6 +210,7 @@ interface IRequestedSeason {
 }
 
 function EventCard({ event, isNextGame }: { event: IEventsItem; isNextGame: boolean }) {
+  const eventDateTime = new Date(event.competitions[0]?.date);
   return (
     <Card key={event.id} className={`mb-3 ${isNextGame ? 'active' : ''}`}>
       <Card.Body>
@@ -236,6 +237,10 @@ function EventCard({ event, isNextGame }: { event: IEventsItem; isNextGame: bool
         </Card.Text>
         <Card.Text>
           <strong>Venue:</strong> {event.competitions[0]?.venue?.fullName || 'N/A'}
+        </Card.Text>
+        <Card.Text>
+          <strong>Date: </strong>
+          {eventDateTime.toLocaleString()}
         </Card.Text>
         <Card.Text>
           <strong>Attendance:</strong> {event.competitions[0]?.attendance || 'N/A'}
