@@ -2,7 +2,7 @@ import React, { Fragment } from 'react' // Merged React import
 import { Card, Button } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import { ArrowClockwise } from 'react-bootstrap-icons'
-import type { RSSItem } from './types' // Type-only import
+import type { RSSItem } from './RSSInterfaces' // Type-only import
 
 import './RSS.css'
 

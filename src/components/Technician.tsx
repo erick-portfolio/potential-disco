@@ -1,86 +1,68 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import type { RSSProps, RSSItem } from './RSSInterfaces'
+import { fetchRSSData } from './RSSUtils'
 import SiteFeed from './SiteFeed'
-import './RSS.css'
 import cheerio from 'cheerio'
-import { API } from 'aws-amplify'
 
-interface TechnicianItem {
-  title: string
-  link: string
-  pubDate: string
-  author: string
+// Transformation function specific to Technician
+async function transformTechnicianData (apiResponseRaw: any): Promise<RSSItem[]> {
+  const response = apiResponseRaw.feedContents.toString()
+  const $ = cheerio.load(response)
+  const feedArray: RSSItem[] = []
+
+  $('.tnt-headline.headline').each((index, element) => {
+    feedArray.push({
+      author: '',
+      link: $(element).find('a').attr('href') ?? '',
+      pubDate: 'Latest',
+      title: $(element).text()
+    })
+  })
+
+  $('article').each((index, element) => {
+    feedArray.push({
+      author: $(element).find("[id^='author']").text(),
+      link: $(element).find('a').attr('href') ?? '',
+      pubDate: $(element).find('.asset-date').text(),
+      title: $(element).find('.tnt-asset-link').attr('aria-label') ?? 'Title Error'
+    })
+  })
+
+  return feedArray
 }
 
-interface TechnicianProps {
-  title: string
-  homepage: string
-  isDarkMode: boolean
-}
-
-function Technician ({ homepage, title, isDarkMode }: TechnicianProps): React.ReactElement {
-  const [items, setItems] = useState<TechnicianItem[]>([])
-  const [isLoading, setIsLoading] = useState<boolean>(true)
+// Refactored Technician Component
+function Technician (props: RSSProps): React.ReactElement {
+  const [items, setItems] = React.useState<RSSItem[]>([])
+  const [isLoading, setIsLoading] = React.useState(true)
   const urlRoot = 'https://www.technicianonline.com'
   const urlPath = '/sports'
   const url = urlRoot + urlPath
 
-  const fetchData = async (): Promise<void> => {
-    try {
-      const responseRaw = await API.get('proxy', `/proxy?url=${encodeURIComponent(url)}`, {})
-      const response = responseRaw.feedContents.toString()
-      const $ = cheerio.load(response)
-      const feedArray: TechnicianItem[] = []
-      $('.tnt-headline.headline').each((index, element) => {
-        const feed: TechnicianItem = {
-          author: '',
-          link:
-            urlRoot +
-            ($(element)
-              .find('a')
-              .attr('href') ?? ''),
-          pubDate: 'Latest',
-          title: $(element).text()
-        }
-        feedArray.push(feed)
-      })
-      $('article').each((index, element) => {
-        const feed: TechnicianItem = {
-          author: $(element).find("[id^='author']").text(),
-          link: 'https://www.technicianonline.com/' + $(element).find('a').attr('href'),
-          pubDate: $(element).find('.asset-date').text(),
-          title: $(element).find('.tnt-asset-link').attr('aria-label') ?? 'Title Error'
-        }
-        feedArray.push(feed)
-      })
-
-      setItems(feedArray)
-      setIsLoading(false)
-    } catch (error) {
-      console.error('Error fetching RSS feed', error)
+  React.useEffect((): void => {
+    const fetchData = async (): Promise<void> => {
+      setIsLoading(true)
+      const fetchedItems = await fetchRSSData(url, transformTechnicianData)
+      setItems(fetchedItems)
       setIsLoading(false)
     }
-  }
 
-  useEffect(() => {
-    void fetchData()
+    fetchData().catch(console.error)
   }, [url])
 
   const handleRefresh = (): void => {
-    setIsLoading(true)
-    void fetchData()
+    fetchRSSData(url, transformTechnicianData).then(fetchedItems => {
+      setItems(fetchedItems)
+      setIsLoading(false)
+    }).catch(console.error)
   }
 
   return (
     <SiteFeed
-      title={title}
-      homepage={homepage}
-      isDarkMode={isDarkMode}
-      items={items.map((item) => ({
-        title: item.title,
-        link: item.link,
-        pubDate: item.pubDate,
-        author: item.author
-      }))}
+      title={props.title}
+      homepage={props.homepage}
+      isDarkMode={props.isDarkMode}
+      items={items}
       isLoading={isLoading}
       onRefresh={handleRefresh}
     />

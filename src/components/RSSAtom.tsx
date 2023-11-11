@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { fetchFeed, parseFeed } from './feedUtils'
 import SiteFeed from './SiteFeed'
-import type { RSSItem as Item } from './types'
+import type { RSSItem as Item } from './RSSInterfaces'
 
 interface Props {
   url: string

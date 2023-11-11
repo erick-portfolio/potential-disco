@@ -56,6 +56,7 @@ export function Websites ({ isDarkMode, rssList }: WebsitesProps): React.ReactEl
         </div>
         <div className='col-md-4'>
           <Wolfpacker
+            url='https://www.on3.com/teams/nc-state-wolfpack'
             homepage='https://www.on3.com/teams/nc-state-wolfpack/'
             title='The Wolfpacker'
             isDarkMode={isDarkMode}
@@ -71,6 +72,7 @@ export function Websites ({ isDarkMode, rssList }: WebsitesProps): React.ReactEl
         </div>
         <div className='col-md-4'>
           <Technician
+            url='https://www.technicianonline.com/feed/'
             homepage='https://www.technicianonline.com/'
             title='Technician'
             isDarkMode={isDarkMode}
@@ -81,6 +83,7 @@ export function Websites ({ isDarkMode, rssList }: WebsitesProps): React.ReactEl
             homepage='https://insidepacksports.com/'
             title='Inside Pack Sports'
             isDarkMode={isDarkMode}
+            url='https://insidepacksports.com/premium/feed'
           />
         </div>
       </div>

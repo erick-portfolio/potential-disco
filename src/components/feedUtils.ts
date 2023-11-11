@@ -1,7 +1,7 @@
 // feedUtils.ts
 
 import fetch from 'node-fetch'
-import type { RSSItem } from './types'
+import type { RSSItem } from './RSSInterfaces'
 
 export const fetchFeed = async (url: string): Promise<string> => {
   const response = await fetch(url)
