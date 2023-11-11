@@ -275,14 +275,17 @@ function ScheduleTab ({
 
   return (
     <div>
+      {filteredEvents.length !== 0
+        ? (<button className={`btn btn-outline-${isDarkMode ? 'light' : 'dark'}`} onClick={toggleShowPreviousGames}>{showPreviousGames ? 'Show Current Game' : 'Show All Games'}</button>)
+        : ('')}
       {filteredEvents.length === 0
         ? (<div className='schedule-message'>No upcoming games.</div>)
-        : (filteredEvents.map((event, index) => (
+        : (filteredEvents.map((event: IEventsItem, index) => (
           <div key={event.id}>
-            <EventCard event={event} isNextGame={index === 0} />
+            <EventCard event={event} key={event.id} isNextGame={index === 0} />
           </div>
-          )))
-      }
+          ))
+          )}
     </div>
   )
 }
