@@ -1,68 +1,60 @@
-import { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
-import SiteFeed from "./SiteFeed";
-import "./RSS.css";
-import cheerio from "cheerio";
-import { API } from "aws-amplify";
+import React, { useEffect, useState } from 'react'
+import SiteFeed from './SiteFeed'
+import './RSS.css'
+import cheerio from 'cheerio'
+import { API } from 'aws-amplify'
 
 interface InsidePackItem {
-  title: string;
-  link: string;
-  pubDate: string;
-  author: string;
+  title: string
+  link: string
+  pubDate: string
+  author: string
 }
 
 interface InsidePackProps {
-  title: string;
-  homepage: string;
-  isDarkMode: boolean;
+  title: string
+  homepage: string
+  isDarkMode: boolean
 }
 
-function InsidePack({ homepage, title, isDarkMode }: InsidePackProps) {
-  const [items, setItems] = useState<InsidePackItem[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+function InsidePack ({ homepage, title, isDarkMode }: InsidePackProps): React.ReactElement {
+  const [items, setItems] = useState<InsidePackItem[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
-  const fetchData = async () => {
+  const fetchData = async (): Promise<void> => {
     try {
-      const responseRaw = await API.get("proxy", `/proxy?url=${encodeURIComponent("https://insidepacksports.com/premium/feed")}`, {});
-      const response = responseRaw.feedContents.toString();
-      const $ = cheerio.load(response);
-      const feedArray: InsidePackItem[] = [];
-      $(".story.item").each((index, element) => {
+      const responseRaw = await API.get('proxy', `/proxy?url=${encodeURIComponent('https://insidepacksports.com/premium/feed')}`, {})
+      const response = responseRaw.feedContents.toString()
+      const $ = cheerio.load(response)
+      const feedArray: InsidePackItem[] = []
+      $('.story.item').each((index, element) => {
         const feed: InsidePackItem = {
-          author: $(element).find(".author-link").text(),
-          link:
-            homepage +
-            ($(element)
-              .find("a")
-              .attr("href") || ""),
-          pubDate: $(element).find(".details")
-            .clone()    //clone the element
-            .children() //select all the children
-            .remove()   //remove all the children
-            .end()  //again go back to selected element
-            .text(),
-          title: $(element).find(".title").text(),
-        };
-        feedArray.push(feed);
-      });
+          author: $(element).find('.author-link').text(),
+          link: homepage + ($(element).find('a').attr('href') ?? ''),
+          pubDate: $(element).find('.details').clone().children().remove().end().text(),
+          title: $(element).find('.title').text()
+        }
+        feedArray.push(feed)
+      })
 
-      setItems(feedArray);
-      setIsLoading(false);
+      setItems(feedArray)
+      setIsLoading(false)
     } catch (error) {
-      console.error("Error fetching RSS feed", error);
-      setIsLoading(false);
+      console.error('Error fetching RSS feed', error)
+      setIsLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    void fetchData()
+  }, [])
 
-  const handleRefresh = async () => {
-    setIsLoading(true);
-    await fetchData();
-  };
+  const handleRefresh = (): void => {
+    setIsLoading(true)
+    fetchData().catch((error) => {
+      console.error('Error refreshing data', error)
+    })
+  }
 
   return (
     <SiteFeed
@@ -73,12 +65,12 @@ function InsidePack({ homepage, title, isDarkMode }: InsidePackProps) {
         title: item.title,
         link: item.link,
         pubDate: item.pubDate,
-        author: item.author,
+        author: item.author
       }))}
       isLoading={isLoading}
       onRefresh={handleRefresh}
     />
-  );
+  )
 }
 
-export default InsidePack;
+export default InsidePack

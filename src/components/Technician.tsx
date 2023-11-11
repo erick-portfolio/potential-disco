@@ -1,76 +1,74 @@
-import { useEffect, useState } from "react";
-import { Card } from "react-bootstrap";
-import SiteFeed from "./SiteFeed";
-import "./RSS.css";
-import cheerio from "cheerio";
-import { API } from "aws-amplify";
+import React, { useEffect, useState } from 'react'
+import SiteFeed from './SiteFeed'
+import './RSS.css'
+import cheerio from 'cheerio'
+import { API } from 'aws-amplify'
 
 interface TechnicianItem {
-  title: string;
-  link: string;
-  pubDate: string;
-  author: string;
+  title: string
+  link: string
+  pubDate: string
+  author: string
 }
 
 interface TechnicianProps {
-  title: string;
-  homepage: string;
-  isDarkMode: boolean;
+  title: string
+  homepage: string
+  isDarkMode: boolean
 }
 
-function Technician({ homepage, title, isDarkMode }: TechnicianProps) {
-  const [items, setItems] = useState<TechnicianItem[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+function Technician ({ homepage, title, isDarkMode }: TechnicianProps): React.ReactElement {
+  const [items, setItems] = useState<TechnicianItem[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+  const urlRoot = 'https://www.technicianonline.com'
+  const urlPath = '/sports'
+  const url = urlRoot + urlPath
 
-  const fetchData = async () => {
+  const fetchData = async (): Promise<void> => {
     try {
-      const urlRoot = "https://www.technicianonline.com";
-      const urlPath = "/sports";
-      const url = urlRoot + urlPath;
-
-      const responseRaw = await API.get("proxy", `/proxy?url=${encodeURIComponent(url)}`, {});
-      const response = responseRaw.feedContents.toString();
-      const $ = cheerio.load(response);
-      const feedArray: TechnicianItem[] = [];
-      $(".tnt-headline.headline").each((index, element) => {
+      const responseRaw = await API.get('proxy', `/proxy?url=${encodeURIComponent(url)}`, {})
+      const response = responseRaw.feedContents.toString()
+      const $ = cheerio.load(response)
+      const feedArray: TechnicianItem[] = []
+      $('.tnt-headline.headline').each((index, element) => {
         const feed: TechnicianItem = {
-          author: "",
+          author: '',
           link:
             urlRoot +
             ($(element)
-              .find("a")
-              .attr("href") || ""),
-          pubDate: "Latest",
-          title: $(element).text(),
-        };
-        feedArray.push(feed);
-      });
-      $("article").each((index, element) => {
+              .find('a')
+              .attr('href') ?? ''),
+          pubDate: 'Latest',
+          title: $(element).text()
+        }
+        feedArray.push(feed)
+      })
+      $('article').each((index, element) => {
         const feed: TechnicianItem = {
           author: $(element).find("[id^='author']").text(),
-          link: "https://www.technicianonline.com/" + $(element).find("a").attr("href"),
-          pubDate: $(element).find(".asset-date").text(),
-          title: $(element).find(".tnt-asset-link").attr("aria-label") || "Title Error",
-        };
-        feedArray.push(feed);
-      });
+          link: 'https://www.technicianonline.com/' + $(element).find('a').attr('href'),
+          pubDate: $(element).find('.asset-date').text(),
+          title: $(element).find('.tnt-asset-link').attr('aria-label') ?? 'Title Error'
+        }
+        feedArray.push(feed)
+      })
 
-      setItems(feedArray);
-      setIsLoading(false);
+      setItems(feedArray)
+      setIsLoading(false)
     } catch (error) {
-      console.error("Error fetching RSS feed", error);
-      setIsLoading(false);
+      console.error('Error fetching RSS feed', error)
+      setIsLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchData();
-  }, []);
+    void fetchData()
+  }, [url])
 
-  const handleRefresh = async () => {
-    setIsLoading(true);
-    await fetchData();
-  };
+  const handleRefresh = (): void => {
+    setIsLoading(true)
+    void fetchData()
+  }
 
   return (
     <SiteFeed
@@ -81,12 +79,12 @@ function Technician({ homepage, title, isDarkMode }: TechnicianProps) {
         title: item.title,
         link: item.link,
         pubDate: item.pubDate,
-        author: item.author,
+        author: item.author
       }))}
       isLoading={isLoading}
       onRefresh={handleRefresh}
     />
-  );
+  )
 }
 
-export default Technician;
+export default Technician

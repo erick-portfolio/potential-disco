@@ -1,53 +1,53 @@
-import "./RSS.css";
-import { useEffect, useState } from "react";
-import { API } from "aws-amplify";
-import SiteFeed from "./SiteFeed";
+import './RSS.css'
+import React, { useEffect, useState } from 'react'
+import { API } from 'aws-amplify'
+import SiteFeed from './SiteFeed'
 
 interface GoPackItem {
-  title: string;
-  link: string;
-  pubDate: string;
-  author: string;
+  title: string
+  link: string
+  pubDate: string
+  author: string
 }
 
 interface GoPackProps {
-  url: string;
-  title: string;
-  homepage: string;
-  isDarkMode: boolean;
+  url: string
+  title: string
+  homepage: string
+  isDarkMode: boolean
 }
 
-function GoPack({ homepage, url, title, isDarkMode }: GoPackProps) {
-  const [items, setItems] = useState<GoPackItem[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+function GoPack ({ homepage, url, title, isDarkMode }: GoPackProps): React.ReactElement {
+  const [items, setItems] = useState<GoPackItem[]>([])
+  const [isLoading, setIsLoading] = useState<boolean>(true)
 
-  const fetchData = async () => {
+  const fetchData = async (): Promise<void> => {
     try {
-      const response = await API.get("proxy", `/proxy?url=${encodeURIComponent(url)}`, {});
-      const jsonData = response.feedContents;
+      const response = await API.get('proxy', `/proxy?url=${encodeURIComponent(url)}`, {})
+      const jsonData = response.feedContents
       const goPackItems: GoPackItem[] = jsonData.map((item: any) => ({
         title: item.title,
-        link: "https://gopack.com" + item.url,
+        link: 'https://gopack.com' + item.url,
         pubDate: item.content_date,
-        author: item.writer || "",
-      }));
+        author: item.writer ?? ''
+      }))
 
-      setItems(goPackItems);
-      setIsLoading(false);
+      setItems(goPackItems)
+      setIsLoading(false)
     } catch (error) {
-      console.error("Error fetching RSS feed", error);
-      setIsLoading(false);
+      console.error('Error fetching RSS feed', error)
+      setIsLoading(false)
     }
-  };
+  }
 
   useEffect(() => {
-    fetchData();
-  }, [url]);
+    void fetchData()
+  }, [url])
 
-  const handleRefresh = () => {
-    setIsLoading(true);
-    fetchData();
-  };
+  const handleRefresh = (): void => {
+    setIsLoading(true)
+    void fetchData()
+  }
 
   return (
     <SiteFeed
@@ -58,12 +58,12 @@ function GoPack({ homepage, url, title, isDarkMode }: GoPackProps) {
         title: item.title,
         link: item.link,
         pubDate: item.pubDate,
-        author: item.author,
+        author: item.author
       }))}
       isLoading={isLoading}
       onRefresh={handleRefresh}
     />
-  );
+  )
 }
 
-export default GoPack;
+export default GoPack
