@@ -210,7 +210,6 @@ interface IRequestedSeason {
 }
 
 function EventCard({ event, isNextGame }: { event: IEventsItem; isNextGame: boolean }) {
-  const eventDateTime = new Date(event.competitions[0]?.date);
   return (
     <Card key={event.id} className={`mb-3 ${isNextGame ? 'active' : ''}`}>
       <Card.Body>
@@ -282,20 +281,14 @@ function ScheduleTab({
 
   return (
     <div>
-      {filteredEvents.length !== 0 ? (
-        <button
-          className={`btn btn-outline-${isDarkMode ? 'light' : 'dark'}`}
-          onClick={toggleShowPreviousGames}
-        >
-          {showPreviousGames ? 'Show Current Game' : 'Show All Games'}
-        </button>
-      ) : ("")}
+      {/* ... existing code ... */}
       {filteredEvents.length === 0 ? (
         <div className="schedule-message">No upcoming games.</div>
       ) : (
         filteredEvents.map((event: IEventsItem, index) => (
-          <div>
-            <EventCard event={event} key={event.id} isNextGame={index === 0} />
+          // Move the `key` prop to this div
+          <div key={event.id}>
+            <EventCard event={event} isNextGame={index === 0} />
           </div>
         ))
       )}

@@ -1,3 +1,7 @@
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
+
 interface NavBarProps {
   isDarkMode: boolean;
   toggleDarkMode: () => void;
@@ -6,41 +10,35 @@ interface NavBarProps {
 
 export function NavBar({ isDarkMode, toggleDarkMode, brandText }: NavBarProps) {
   return (
-    <nav
-      className={`navbar navbar-expand-sm ${
-        isDarkMode ? "navbar-dark bg-dark" : "navbar-light bg-light"
-      }`}
-      style={{ paddingRight: "20px", paddingLeft: "20px" }}
+    <Navbar
+      collapseOnSelect
+      expand="lg"
+      variant={isDarkMode ? 'dark' : 'light'}
+      bg={isDarkMode ? 'dark' : 'light'}
     >
-      {/* Brand Text */}
-      <a
-        className="navbar-brand"
-        href="/"
-        style={{ color: "#d62828", fontSize: "30px", fontWeight: "bold" }}
-      >
-        {brandText}
-      </a>
-
-      <div className="navbar-nav ms-auto d-flex align-items-center">
-        {/* GitHub Link */}
-        <a
-          href="https://github.com/erick-portfolio/potential-disco"
-          className="nav-link"
-          style={{ marginRight: "15px" }}
-        >
-          GitHub Repo
-        </a>
-
-        {/* Toggle Dark Mode Button */}
-        <button
-          style={{ whiteSpace: "nowrap" }}
-          className={`btn btn-outline-${isDarkMode ? "light" : "dark"}`}
-          onClick={toggleDarkMode}
-        >
-          {isDarkMode ? "Light Mode" : "Dark Mode"}
-        </button>
-      </div>
-    </nav>
+      <Container style={{ maxWidth: 'inherit' }}>
+        <Navbar.Brand href="#home" style={{
+          color: "rgb(214, 40, 40)",
+          fontSize: "30px",
+          fontWeight: "bold",
+        }}>{brandText}</Navbar.Brand>
+        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Collapse id="responsive-navbar-nav">
+          <Nav className="me-auto">
+            <Nav.Link href="https://github.com/erick-portfolio/potential-disco">Source Code</Nav.Link>
+          </Nav>
+          <Nav>
+            {/* Toggle Dark Mode Button */}
+            <button
+              style={{ whiteSpace: "nowrap" }}
+              className={`btn btn-outline-${isDarkMode ? "light" : "dark"}`}
+              onClick={toggleDarkMode}
+            >
+              {isDarkMode ? "Light Mode" : "Dark Mode"}
+            </button>          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   );
 }
 
