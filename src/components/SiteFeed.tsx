@@ -45,7 +45,7 @@ function SiteFeed ({
         </Link>
         <Card.Subtitle>
           {formatDate(item.pubDate)}
-          {item.author ?? 'unknown'}
+          {item.author !== '' ? ' by ' + item.author : ''}
         </Card.Subtitle>
       </Card.Body>
     </Card>
