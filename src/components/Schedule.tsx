@@ -219,7 +219,7 @@ function EventCard({ event, isNextGame }: { event: IEventsItem; isNextGame: bool
             {event.shortName}
           </Link>
         </Card.Title>
-        <Card.Text className="mb-2 text-muted">
+        <Card.Text className="mb-2">
           <strong>Date: </strong>
           {new Date(event.date).toLocaleString()}
         </Card.Text>
@@ -237,10 +237,6 @@ function EventCard({ event, isNextGame }: { event: IEventsItem; isNextGame: bool
         </Card.Text>
         <Card.Text>
           <strong>Venue:</strong> {event.competitions[0]?.venue?.fullName || 'N/A'}
-        </Card.Text>
-        <Card.Text>
-          <strong>Date: </strong>
-          {eventDateTime.toLocaleString()}
         </Card.Text>
         <Card.Text>
           <strong>Attendance:</strong> {event.competitions[0]?.attendance || 'N/A'}
