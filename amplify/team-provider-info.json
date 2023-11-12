@@ -13,18 +13,11 @@
     },
     "categories": {
       "function": {
-        "proxy": {
-          "deploymentBucketName": "amplify-wolfpackwireclone-dev-51446-deployment",
-          "s3Key": "amplify-builds/proxy-354f72334d4e4146726c-build.zip"
-        },
         "wolfpackwireclonec842ca98": {
           "deploymentBucketName": "amplify-wolfpackwireclone-dev-51446-deployment",
-          "s3Key": "amplify-builds/wolfpackwireclonec842ca98-5949394b4d577031636d-build.zip",
+          "s3Key": "amplify-builds/wolfpackwireclonec842ca98-615653422b4672305535-build.zip",
           "test": "variable"
         }
-      },
-      "api": {
-        "proxy": {}
       },
       "auth": {
         "wolfpackwireclone": {}

@@ -6,13 +6,6 @@ export type AmplifyDependentResourcesAttributes = {
       "appName": "string"
     }
   },
-  "api": {
-    "proxy": {
-      "ApiId": "string",
-      "ApiName": "string",
-      "RootUrl": "string"
-    }
-  },
   "auth": {
     "wolfpackwireclone": {
       "AppClientID": "string",
@@ -25,13 +18,6 @@ export type AmplifyDependentResourcesAttributes = {
     }
   },
   "function": {
-    "proxy": {
-      "Arn": "string",
-      "LambdaExecutionRole": "string",
-      "LambdaExecutionRoleArn": "string",
-      "Name": "string",
-      "Region": "string"
-    },
     "wolfpackwireclonec842ca98": {
       "Arn": "string",
       "CloudWatchEventRule": "string",

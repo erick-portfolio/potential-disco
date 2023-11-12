@@ -5,22 +5,7 @@
       "service": "Pinpoint"
     }
   },
-  "api": {
-    "proxy": {
-      "dependsOn": [
-        {
-          "attributes": [
-            "Name",
-            "Arn"
-          ],
-          "category": "function",
-          "resourceName": "proxy"
-        }
-      ],
-      "providerPlugin": "awscloudformation",
-      "service": "API Gateway"
-    }
-  },
+  "api": {},
   "auth": {
     "wolfpackwireclone": {
       "dependsOn": [],
@@ -40,12 +25,6 @@
     }
   },
   "function": {
-    "proxy": {
-      "build": true,
-      "dependsOn": [],
-      "providerPlugin": "awscloudformation",
-      "service": "Lambda"
-    },
     "wolfpackwireclonec842ca98": {
       "build": true,
       "dependsOn": [
@@ -62,22 +41,6 @@
     }
   },
   "parameters": {
-    "AMPLIFY_function_proxy_deploymentBucketName": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "proxy"
-        }
-      ]
-    },
-    "AMPLIFY_function_proxy_s3Key": {
-      "usedBy": [
-        {
-          "category": "function",
-          "resourceName": "proxy"
-        }
-      ]
-    },
     "AMPLIFY_function_wolfpackwireclonec842ca98_deploymentBucketName": {
       "usedBy": [
         {
