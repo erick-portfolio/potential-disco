@@ -45,6 +45,20 @@
       "dependsOn": [],
       "providerPlugin": "awscloudformation",
       "service": "Lambda"
+    },
+    "wolfpackwireclonec842ca98": {
+      "build": true,
+      "dependsOn": [
+        {
+          "attributes": [
+            "BucketName"
+          ],
+          "category": "storage",
+          "resourceName": "s3aefc79b6"
+        }
+      ],
+      "providerPlugin": "awscloudformation",
+      "service": "Lambda"
     }
   },
   "parameters": {
@@ -63,6 +77,37 @@
           "resourceName": "proxy"
         }
       ]
+    },
+    "AMPLIFY_function_wolfpackwireclonec842ca98_deploymentBucketName": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "wolfpackwireclonec842ca98"
+        }
+      ]
+    },
+    "AMPLIFY_function_wolfpackwireclonec842ca98_s3Key": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "wolfpackwireclonec842ca98"
+        }
+      ]
+    },
+    "AMPLIFY_function_wolfpackwireclonec842ca98_test": {
+      "usedBy": [
+        {
+          "category": "function",
+          "resourceName": "wolfpackwireclonec842ca98"
+        }
+      ]
+    }
+  },
+  "storage": {
+    "s3aefc79b6": {
+      "dependsOn": [],
+      "providerPlugin": "awscloudformation",
+      "service": "S3"
     }
   }
 }

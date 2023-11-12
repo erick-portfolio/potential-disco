@@ -3,10 +3,55 @@
   "cognitoConfig": {
     "identityPoolName": "wolfpackwireclone_identitypool_2bd78a24",
     "allowUnauthenticatedIdentities": true,
-    "authSelections": "identityPoolOnly",
+    "resourceNameTruncated": "wolfpa345d7779",
+    "userPoolName": "wolfpackwireclone_userpool_345d7779",
+    "autoVerifiedAttributes": [
+      "email"
+    ],
+    "mfaConfiguration": "OFF",
+    "mfaTypes": [
+      "SMS Text Message"
+    ],
+    "smsAuthenticationMessage": "Your authentication code is {####}",
+    "smsVerificationMessage": "Your verification code is {####}",
+    "emailVerificationSubject": "Your verification code",
+    "emailVerificationMessage": "Your verification code is {####}",
+    "defaultPasswordPolicy": false,
+    "passwordPolicyMinLength": 8,
+    "passwordPolicyCharacters": [],
+    "requiredAttributes": [
+      "email"
+    ],
+    "aliasAttributes": [],
+    "userpoolClientGenerateSecret": false,
+    "userpoolClientRefreshTokenValidity": 30,
+    "userpoolClientWriteAttributes": [
+      "email"
+    ],
+    "userpoolClientReadAttributes": [
+      "email"
+    ],
+    "userpoolClientLambdaRole": "wolfpa345d7779_userpoolclient_lambda_role",
+    "userpoolClientSetAttributes": false,
+    "authSelections": "identityPoolAndUserPool",
     "resourceName": "wolfpackwireclone",
     "sharedId": "2bd78a24",
     "serviceName": "Cognito",
-    "useDefault": "manual"
+    "useDefault": "manual",
+    "authRoleArn": {
+      "Fn::GetAtt": [
+        "AuthRole",
+        "Arn"
+      ]
+    },
+    "unauthRoleArn": {
+      "Fn::GetAtt": [
+        "UnauthRole",
+        "Arn"
+      ]
+    },
+    "breakCircularDependency": true,
+    "useEnabledMfas": true,
+    "dependsOn": []
   }
-}
+} 

@@ -15,8 +15,13 @@ export type AmplifyDependentResourcesAttributes = {
   },
   "auth": {
     "wolfpackwireclone": {
+      "AppClientID": "string",
+      "AppClientIDWeb": "string",
       "IdentityPoolId": "string",
-      "IdentityPoolName": "string"
+      "IdentityPoolName": "string",
+      "UserPoolArn": "string",
+      "UserPoolId": "string",
+      "UserPoolName": "string"
     }
   },
   "function": {
@@ -25,6 +30,20 @@ export type AmplifyDependentResourcesAttributes = {
       "LambdaExecutionRole": "string",
       "LambdaExecutionRoleArn": "string",
       "Name": "string",
+      "Region": "string"
+    },
+    "wolfpackwireclonec842ca98": {
+      "Arn": "string",
+      "CloudWatchEventRule": "string",
+      "LambdaExecutionRole": "string",
+      "LambdaExecutionRoleArn": "string",
+      "Name": "string",
+      "Region": "string"
+    }
+  },
+  "storage": {
+    "s3aefc79b6": {
+      "BucketName": "string",
       "Region": "string"
     }
   }

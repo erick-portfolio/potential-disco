@@ -17,6 +17,12 @@
     "jsx": "react-jsx",
     "outDir": "./dist"
   },
-  "include": ["src"],
-  "exclude": ["src/aws-exports.js"]
+  "include": [
+    "src/**/*",
+  ],
+  "exclude": [
+    "node_modules",
+    "src/aws-exports.js",
+    "amplify/backend/function/**/*"
+  ]
 }

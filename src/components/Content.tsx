@@ -37,7 +37,6 @@ export function Content ({ isDarkMode, twitterFeedConfig, rssConfig }: ContentPr
           <div className='col-md-10'>
             <Websites
               isDarkMode={isDarkMode}
-              rssList={rssConfig}
             />
           </div>
         </div>

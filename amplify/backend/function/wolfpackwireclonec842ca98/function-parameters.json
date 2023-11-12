@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "storage": {
+      "s3aefc79b6": [
+        "create",
+        "read",
+        "update",
+        "delete"
+      ]
+    }
+  },
+  "lambdaLayers": [],
+  "environmentVariableList": [
+    {
+      "cloudFormationParameterName": "test",
+      "environmentVariableName": "test"
+    }
+  ]
+}

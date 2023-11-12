@@ -1,89 +1,76 @@
-import Wolfpacker from './Wolfpacker'
-import RSSAtom from './RSSAtom'
-import RSS from './RSS'
-import GoPack from './GoPack'
-import CBSSports from './CBSSports'
-import Technician from './Technician'
-import InsidePack from './InsidePack'
 import React from 'react'
-
-interface RssList {
-  url: string
-  title: string
-  homepage: string
-}
+import ContentFeed from './ContentFeed'
 
 interface WebsitesProps {
   isDarkMode: boolean
-  rssList: RssList[]
 }
 
-export function Websites ({ isDarkMode, rssList }: WebsitesProps): React.ReactElement {
+export function Websites ({ isDarkMode }: WebsitesProps): React.ReactElement {
   return (
     <div className='album py-5'>
       <div className='row'>
         <div className='col-md-4'>
-          <RSSAtom
+          <ContentFeed
             homepage='https://www.backingthepack.com/'
-            url='https://www.backingthepack.com/rss/current.xml'
-            title='Backing The  Pack'
+            title='Backing The Pack'
             isDarkMode={isDarkMode}
+            s3FileKey='BackingThePack.content.json'
           />
         </div>
         <div className='col-md-4'>
-          <RSS
+          <ContentFeed
             homepage='https://packinsider.com/'
-            url='https://packinsider.com/feed/'
             title='Pack Insider'
             isDarkMode={isDarkMode}
+            s3FileKey='PackInsider.content.json'
           />
         </div>
         <div className='col-md-4'>
-          <RSS
+          <ContentFeed
             homepage='https://bustingbrackets.com/acc/nc-state-wolfpack/'
-            url='https://bustingbrackets.com/acc/nc-state-wolfpack/feed/'
             title='Busting Brackets'
             isDarkMode={isDarkMode}
+            s3FileKey='BustingBrackets.content.json'
           />
         </div>
         <div className='col-md-4'>
-          <GoPack
-            homepage='https://www.gopack.com/'
-            url='https://gopack.com/services/adaptive_components.ashx?type=stories&count=6&start=0&sport_id=0'
+          <ContentFeed
+            homepage='https://gopack.com/'
             title='Go Pack'
             isDarkMode={isDarkMode}
+            s3FileKey='GoPack.content.json'
           />
         </div>
         <div className='col-md-4'>
-          <Wolfpacker
-            url='https://www.on3.com/teams/nc-state-wolfpack'
+          <ContentFeed
             homepage='https://www.on3.com/teams/nc-state-wolfpack/'
             title='The Wolfpacker'
             isDarkMode={isDarkMode}
+            s3FileKey='Wolfpacker.content.json'
           />
         </div>
         <div className='col-md-4'>
-          <CBSSports
+          <ContentFeed
             homepage='https://www.cbssports.com/college-football/teams/NCST/nc-state-wolfpack/'
-            url='https://www.cbssports.com/college-football/teams/NCST/nc-state-wolfpack/'
             title='CBS Sports'
             isDarkMode={isDarkMode}
+            s3FileKey='CBSSports.content.json'
           />
         </div>
         <div className='col-md-4'>
-          <Technician
-            url='https://www.technicianonline.com/feed/'
+          <ContentFeed
             homepage='https://www.technicianonline.com/'
             title='Technician'
             isDarkMode={isDarkMode}
+            s3FileKey='Technician.content.json'
           />
         </div>
         <div className='col-md-4'>
-          <InsidePack
+          <ContentFeed
             homepage='https://insidepacksports.com/'
             title='Inside Pack Sports'
             isDarkMode={isDarkMode}
-            url='https://insidepacksports.com/premium/feed'
+            s3FileKey='InsidePack.content.json'
           />
         </div>
       </div>
