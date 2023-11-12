@@ -1,4 +1,5 @@
-import { Websites, SidebarImage, Schedule } from './index'
+// import { Websites, SidebarImage, Schedule } from './index'
+import { Websites, Schedule } from './index'
 import React from 'react'
 
 interface ContentProps {
@@ -27,12 +28,12 @@ export function Content ({ isDarkMode, twitterFeedConfig, rssConfig }: ContentPr
             <div className='row'>
               <Schedule isDarkMode={isDarkMode} />
             </div>
-            <div className='row'>
+            {/* <div className='row'>
               <SidebarImage isDarkMode={isDarkMode} path='/pack-chronicle-logo.png' title='AI Generated Art 1' />
             </div>
             <div className='row'>
               <SidebarImage isDarkMode={isDarkMode} path='/pack-chronicle-navbar-logo.png' title='AI Generated Art 2' />
-            </div>
+            </div> */}
           </div>
           <div className='col-md-10'>
             <Websites
