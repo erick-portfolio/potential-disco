@@ -8,30 +8,30 @@ interface AppProps {
   disclaimer: string
 }
 
-function App ({ rssConfig, brandText, disclaimer }: AppProps): React.ReactElement { // Add space before function parentheses
+function App ({ rssConfig, brandText, disclaimer }: AppProps): React.ReactElement {
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem('isDarkMode') === 'true'
-  ) // Remove extra semicolon
-
-  const toggleDarkMode = (): void => {
-    setIsDarkMode(!isDarkMode)
-  } // Remove extra semicolon
+  )
 
   useEffect(() => {
     localStorage.setItem('isDarkMode', isDarkMode.toString())
-  }, [isDarkMode]) // Remove extra semicolon
+  }, [isDarkMode])
 
   return (
     <div className={`App${isDarkMode ? ' dark-mode' : ''}`}>
-      <NavBar
-        isDarkMode={isDarkMode}
-        toggleDarkMode={toggleDarkMode}
-        brandText={brandText}
-      />
-      <Content isDarkMode={isDarkMode} rssConfig={rssConfig} />
-      <Footer isDarkMode={isDarkMode} brandText={brandText} disclaimer={disclaimer} />
+      <div className="background-image-wrapper"></div>
+      <div className={isDarkMode ? 'dark-overlay' : 'light-overlay'}></div>
+      <div className="content-wrapper">
+        <NavBar
+          isDarkMode={isDarkMode}
+          toggleDarkMode={() => { setIsDarkMode(!isDarkMode) }}
+          brandText={brandText}
+        />
+        <Content isDarkMode={isDarkMode} rssConfig={rssConfig} />
+        <Footer isDarkMode={isDarkMode} brandText={brandText} disclaimer={disclaimer} />
+      </div>
     </div>
-  ) // Remove extra semicolon
+  )
 }
 
-export default App // Remove extra semicolon
+export default App

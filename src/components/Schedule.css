@@ -13,7 +13,7 @@
 }
 
 /* Style the tabs container */
-#schedule  #schedule-tabs {
+#schedule #schedule-tabs {
     border: none;
 }
 
@@ -44,7 +44,7 @@
 
 /* Style the active tab */
 #schedule.dark .nav-tabs .nav-link {
-    border:1px solid #6c757d;
+    border: 1px solid #6c757d;
 }
 
 #schedule.light .nav-tabs .nav-link.active {
@@ -53,12 +53,13 @@
     color: #111;
     /* White text color for active tab */
 }
+
 #schedule.light .nav-tabs .nav-link {
     background-color: rgba(255, 255, 255, 0.55);
     /* Blue background for active tab */
     color: #111;
     /* White text color for active tab */
-    border:1px solid #6c757d;
+    border: 1px solid #6c757d;
 }
 
 /* Style the tab content */
