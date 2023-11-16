@@ -69,5 +69,9 @@
 }
 
 .App.dark-mode footer {
-  color: white !important
+  color: white;
+}
+
+.App.dark-mode #schedule {
+  color: white;
 }
