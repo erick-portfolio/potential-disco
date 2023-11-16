@@ -47,11 +47,13 @@ const sourcesConfig =
       customTransform: function (html) {
         const document = parseDocument(html);
         const feedArray = [];
-
         cssSelect.selectAll('.story.item', document).forEach(element => {
           const author = utils.extractText(cssSelect.selectOne('.author-link', element));
           const link = utils.extractHref(cssSelect.selectOne('a', element));
-          const pubDate = utils.extractText(cssSelect.selectOne('.details', element), true);
+          let pubDate = utils.extractText(cssSelect.selectOne('.details', element), true);
+          // Sanitize the pubDate by removing unwanted characters
+          pubDate = pubDate.replace(/^[\s\S]*?(\d+)/, '$1'); // This will remove any characters before the first digit
+
           const title = utils.extractText(cssSelect.selectOne('.title', element));
 
           feedArray.push({ author, link, pubDate, title });
@@ -122,7 +124,6 @@ const sourcesConfig =
       url: 'https://packinsider.com/feed/',
       responseType: 'text',
       customTransform: async (xmlData) => {
-        console.log(xmlData);
         const parser = new xml2js.Parser({ explicitArray: false });
         const result = await parser.parseStringPromise(xmlData);
         return result.rss.channel.item.map(item => ({
