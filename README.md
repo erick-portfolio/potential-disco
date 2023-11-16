@@ -17,7 +17,7 @@ In this documentation, we'll guide you through every step needed to set up, conf
    - [Prerequisites](#prerequisites)
    - [Installation](#installation)
 3. [Configuration](#configuration)
-   - [Configuring `.env` Variables](#configuring-env-variables)
+   - [Configuring .env Variables](#configuring-env-variables)
    - [Configuring Source Feeds](#configuring-source-feeds)
 4. [Deployment](#deployment)
    - [Deploying with Amplify](#deploying-with-amplify)
@@ -109,7 +109,6 @@ GENERATE_SOURCEMAP=false
         "title": "Example Feed",
         "s3FileKey": "Example.content.json"
       },
-      ...
     ]
     ```
 
