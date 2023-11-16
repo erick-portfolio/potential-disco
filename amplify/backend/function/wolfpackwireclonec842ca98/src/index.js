@@ -29,13 +29,23 @@ async function fetchDataAndUpload(source) {
 }
 
 exports.handler = async (event) => {
-    for (const source of sourcesConfig) {
-        await fetchDataAndUpload(source);
-    }
+  try {
+      // Create an array of promises for each source
+      const promises = sourcesConfig.map(source => fetchDataAndUpload(source));
 
-    console.log('All sources processed.');
-    return {
-        statusCode: 200,
-        body: JSON.stringify('Content files for all sources created and uploaded successfully.'),
-    };
+      // Wait for all promises to resolve
+      await Promise.all(promises);
+
+      console.log('All sources processed.');
+      return {
+          statusCode: 200,
+          body: JSON.stringify('Content files for all sources created and uploaded successfully.'),
+      };
+  } catch (error) {
+      console.error('Error during processing:', error);
+      return {
+          statusCode: 500,
+          body: JSON.stringify('An error occurred during processing.'),
+      };
+  }
 };
