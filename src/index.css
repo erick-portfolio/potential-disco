@@ -1,0 +1,28 @@
+.card-title {
+    color: #d9534f !important;
+  }
+  
+  .card-title:hover {
+    color: #ac2925 !important;
+  }
+  
+  .title-link {
+    color: #6c757d;
+  }
+  
+  .title-link:hover {
+    color: #6c757d;
+  }
+  
+  .card-text {
+    margin-top: 1rem;
+  }
+  
+  .card-text p:first-child {
+    margin-top: 0;
+  }
+  
+  h1 {
+    color: #6c757d;
+  }
+  

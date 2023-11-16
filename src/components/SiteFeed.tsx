@@ -2,9 +2,7 @@ import React, { Fragment } from 'react'
 import type { FC } from 'react'
 import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-
 import type { RSSItem } from './RSSInterfaces'
-import './RSS.css'
 
 interface FeedCardProps {
   item: RSSItem
