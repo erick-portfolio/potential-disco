@@ -1,6 +1,7 @@
 const { parseDocument } = require('htmlparser2');
 const cssSelect = require('css-select');
 const utils = require('./utils'); // Import the utility functions
+const xml2js = require('xml2js');
 
 
 const sourcesConfig =
@@ -9,7 +10,6 @@ const sourcesConfig =
       name: 'CBSSports',
       url: 'https://www.cbssports.com/college-football/teams/NCST/nc-state-wolfpack/',
       responseType: 'text',
-      itemType: 'html',
       customTransform: function (html) {
         const document = parseDocument(html);
         const itemElements = cssSelect.selectAll('.NewsFeed-container', document);
@@ -31,7 +31,6 @@ const sourcesConfig =
       name: 'GoPack',
       url: 'https://gopack.com/services/adaptive_components.ashx?type=stories&count=6&start=0&sport_id=0',
       responseType: 'json',
-      itemType: 'json',
       customTransform: function (jsonData) {
         return jsonData.map(item => ({
           title: item.title,
@@ -45,7 +44,6 @@ const sourcesConfig =
       name: 'InsidePack',
       url: 'https://insidepacksports.com/premium/feed',
       responseType: 'text',
-      itemType: 'html',
       customTransform: function (html) {
         const document = parseDocument(html);
         const feedArray = [];
@@ -66,7 +64,6 @@ const sourcesConfig =
       name: 'Technician',
       url: 'https://www.technicianonline.com/sports',
       responseType: 'text',
-      itemType: 'html',
       customTransform: function (html) {
         const document = parseDocument(html);
         const feedArray = [];
@@ -104,7 +101,6 @@ const sourcesConfig =
       name: 'Wolfpacker',
       url: 'https://www.on3.com/teams/nc-state-wolfpack/',
       responseType: 'text',
-      itemType: 'html',
       customTransform: function (html) {
         const document = parseDocument(html);
         const feedArray = [];
@@ -125,20 +121,49 @@ const sourcesConfig =
       name: 'PackInsider',
       url: 'https://packinsider.com/feed/',
       responseType: 'text',
-      itemType: 'rss',
+      customTransform: async (xmlData) => {
+        console.log(xmlData);
+        const parser = new xml2js.Parser({ explicitArray: false });
+        const result = await parser.parseStringPromise(xmlData);
+        return result.rss.channel.item.map(item => ({
+          title: item.title,
+          link: item.link,
+          pubDate: item.pubDate,
+          author: item.author || item['dc:creator']
+        }));
+      }
     },
     {
       name: 'BustingBrackets',
       url: 'https://bustingbrackets.com/acc/nc-state-wolfpack/feed/',
       responseType: 'text',
-      itemType: 'rss',
+      customTransform: async (xmlData) => {
+        const parser = new xml2js.Parser({ explicitArray: false });
+        const result = await parser.parseStringPromise(xmlData);
+        return result.rss.channel.item.map(item => ({
+          title: item.title,
+          link: item.link,
+          pubDate: item.pubDate,
+          author: item.author || item['dc:creator']
+        }));
+      }
     },
     {
       name: 'BackingThePack',
       url: 'https://www.backingthepack.com/rss/current.xml',
       responseType: 'text',
-      itemType: 'rss-atom',
-    }
+      customTransform: async (xmlData) => {
+        const parser = new xml2js.Parser({ explicitArray: false });
+        const result = await parser.parseStringPromise(xmlData);
+        return (Array.isArray(result.feed.entry) ? result.feed.entry : [result.feed.entry]).map(entry => ({
+          title: entry.title,
+          link: entry.link && entry.link.href,
+          pubDate: entry.updated,
+          author: entry.author && entry.author.name
+        }));
+      }
+    },
   ];
 
 module.exports = sourcesConfig;
+

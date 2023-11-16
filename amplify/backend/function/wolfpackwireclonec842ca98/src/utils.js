@@ -11,6 +11,7 @@ const utils = {
   },
 
   // Other common functions can be added here
+  
 };
 
 module.exports = utils;

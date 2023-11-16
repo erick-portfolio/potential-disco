@@ -1,7 +1,6 @@
 const { S3Client, PutObjectCommand } = require("@aws-sdk/client-s3");
 const fetch = require('node-fetch');
 const sourcesConfig = require('./sourcesConfig');
-const transform = require('./transform');
 
 const client = new S3Client({});
 
@@ -13,7 +12,7 @@ async function fetchDataAndUpload(source) {
     }
 
     const data = source.responseType === 'json' ? await response.json() : await response.text();
-    const items = await transform(data, source);
+    const items = await source.customTransform(data);
 
     await client.send(new PutObjectCommand({
         Bucket: process.env.STORAGE_S3AEFC79B6_BUCKETNAME,
