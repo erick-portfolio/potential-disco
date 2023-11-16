@@ -52,7 +52,7 @@ To install WolfpackWireClone, follow these steps:
 1.  Install the dependencies:
 
     ```bash
-    npm install
+    yarn
     ```
 
 2.  Configure the AWS Amplify environment:
@@ -75,7 +75,7 @@ To install WolfpackWireClone, follow these steps:
 
 5.  Start the application locally:
     ```bash
-    npm start
+    yarn run start
     ```
 
 The application should now be running on `http://localhost:3000`.
