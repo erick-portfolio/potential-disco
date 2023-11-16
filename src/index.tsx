@@ -12,8 +12,6 @@ import awsconfig from './aws-exports'
 Amplify.configure(awsconfig)
 
 // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
-const twitterFeedConfig = JSON.parse(process.env.REACT_APP_TWITTER_FEED_CONFIG!)
-// eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
 const rssConfig = JSON.parse(process.env.REACT_APP_RSS_CONFIG!)
 // eslint-disable-next-line  @typescript-eslint/no-non-null-assertion
 const brandText = process.env.REACT_APP_BRAND_TEXT!
@@ -29,7 +27,6 @@ root.render(
     <BrowserRouter basename='/'>
       <App
         rssConfig={rssConfig}
-        twitterFeedConfig={twitterFeedConfig}
         brandText={brandText}
         disclaimer={disclaimer}
       />

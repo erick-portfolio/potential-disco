@@ -1,23 +1,14 @@
 import './App.css'
 import React, { useState, useEffect } from 'react'
 import { NavBar, Footer, Content } from './components'
-
+import type { WebsiteConfig } from './components'
 interface AppProps {
-  twitterFeedConfig: {
-    sourceType: string
-    ownerScreenName: string
-    slug: string
-  }
-  rssConfig: Array<{
-    url: string
-    homepage: string
-    title: string
-  }>
+  rssConfig: WebsiteConfig[]
   brandText: string
   disclaimer: string
 }
 
-function App ({ twitterFeedConfig, rssConfig, brandText, disclaimer }: AppProps): React.ReactElement { // Add space before function parentheses
+function App ({ rssConfig, brandText, disclaimer }: AppProps): React.ReactElement { // Add space before function parentheses
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem('isDarkMode') === 'true'
   ) // Remove extra semicolon
@@ -37,7 +28,7 @@ function App ({ twitterFeedConfig, rssConfig, brandText, disclaimer }: AppProps)
         toggleDarkMode={toggleDarkMode}
         brandText={brandText}
       />
-      <Content isDarkMode={isDarkMode} rssConfig={rssConfig} twitterFeedConfig={twitterFeedConfig} />
+      <Content isDarkMode={isDarkMode} rssConfig={rssConfig} />
       <Footer isDarkMode={isDarkMode} brandText={brandText} disclaimer={disclaimer} />
     </div>
   ) // Remove extra semicolon

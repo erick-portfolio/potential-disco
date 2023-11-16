@@ -1,22 +1,15 @@
 // import { Websites, SidebarImage, Schedule } from './index'
 import { Websites, Schedule } from './index'
+import type { WebsiteConfig } from './index'
 import React from 'react'
 
 interface ContentProps {
   isDarkMode: boolean
-  twitterFeedConfig: {
-    sourceType: string
-    ownerScreenName: string
-    slug: string
-  }
-  rssConfig: Array<{
-    url: string
-    homepage: string
-    title: string
-  }>
+  rssConfig: WebsiteConfig[]
+
 }
 
-export function Content ({ isDarkMode, twitterFeedConfig, rssConfig }: ContentProps): React.ReactElement {
+export function Content ({ isDarkMode, rssConfig }: ContentProps): React.ReactElement {
   return (
     <div
       className={`Content ${isDarkMode ? 'dark' : ''}`}
@@ -37,6 +30,7 @@ export function Content ({ isDarkMode, twitterFeedConfig, rssConfig }: ContentPr
           </div>
           <div className='col-md-10'>
             <Websites
+              rssConfig={rssConfig}
               isDarkMode={isDarkMode}
             />
           </div>
