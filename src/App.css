@@ -67,3 +67,7 @@
 .card {
   min-height: 120px;
 }
+
+.App.dark-mode footer {
+  color: white !important
+}
