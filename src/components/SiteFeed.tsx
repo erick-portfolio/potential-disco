@@ -9,7 +9,6 @@ interface FeedCardProps {
 }
 
 const FeedCard: FC<FeedCardProps> = ({ item }) => {
-  console.log('item ' + JSON.stringify(item))
   const formatDate = (date: string): string => {
     const pubDate = new Date(date)
     return isNaN(pubDate.getTime()) ? date : pubDate.toLocaleString()
