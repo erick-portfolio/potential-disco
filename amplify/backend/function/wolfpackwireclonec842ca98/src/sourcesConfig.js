@@ -158,7 +158,7 @@ const sourcesConfig =
         const result = await parser.parseStringPromise(xmlData);
         return (Array.isArray(result.feed.entry) ? result.feed.entry : [result.feed.entry]).map(entry => ({
           title: entry.title,
-          link: entry.link && entry.link.href,
+          link: entry.id,
           pubDate: entry.updated,
           author: entry.author && entry.author.name
         }));
