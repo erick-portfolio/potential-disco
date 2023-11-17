@@ -14,6 +14,26 @@ const FeedCard: FC<FeedCardProps> = ({ item }) => {
     return isNaN(pubDate.getTime()) ? date : pubDate.toLocaleString()
   }
 
+  // Function to format the author(s) string
+  const formatAuthors = (authors: string | string[]): string => {
+    // If authors is a single string, return it directly
+    if (typeof authors === 'string') {
+      return authors
+    }
+    // If authors is an array, format it
+    if (Array.isArray(authors) && authors.length > 0) {
+      // Check if there's only one author in the array
+      if (authors.length === 1) {
+        return authors[0]
+      }
+      // More than one author, format the string with commas and 'and'
+      const lastAuthor = authors.pop()
+      return `${authors.join(', ')}, and ${lastAuthor}`
+    }
+    // Fallback for empty array or undefined
+    return ''
+  }
+
   return (
     <Card className="feed-card">
       <Card.Body>
@@ -22,7 +42,7 @@ const FeedCard: FC<FeedCardProps> = ({ item }) => {
         </Link>
         <Card.Subtitle>
           {formatDate(item.pubDate)}
-          {item.author !== '' ? ` by ${item.author}` : ''}
+          {item.author !== '' && item.author.length > 0 ? ` by ${formatAuthors(item.author)}` : ''}
         </Card.Subtitle>
       </Card.Body>
     </Card>

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import type { FC } from 'react'
 import SiteFeed from './SiteFeed'
-import type { RSSItem } from './RSSInterfaces'
+import type { RSSItem } from '.'
 import { Storage } from 'aws-amplify'
 
 interface ContentFeedProps {
