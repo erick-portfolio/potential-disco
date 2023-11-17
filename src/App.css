@@ -26,16 +26,32 @@
 }
 
 .dark-overlay {
-  background: rgba(0, 0, 0, 0.85);
+  background: rgba(0, 0, 0, 0.75);
 }
 
 .light-overlay {
-  background: rgba(255, 255, 255, 0.98);
+  background: rgba(255, 255, 255, 0.90);
 }
 
 .content-wrapper {
   position: relative;
   z-index: 1;
+}
+
+.btn-outline-light:hover{
+  background: white !important;
+}
+
+.btn-outline-light{
+  background: black !important;
+}
+
+.btn-outline-dark:hover{
+  background: black !important;
+}
+
+.btn-outline-dark{
+  background: white !important;
 }
 
 .App.dark-mode .background-image-wrapper {
@@ -47,7 +63,7 @@
 }
 
 .App:not(.dark-mode) .card {
-  background-color: rgb(0, 0, 0, 0);
+  background-color: rgba(255, 255, 255, .7);
 }
 
 .App.dark-mode .navbar-light .navbar-brand {
@@ -56,9 +72,10 @@
 
 .App.dark-mode .card {
   border-color: #2f3336;
-  --bs-card-bg: inherit;
+  --bs-card-bg: rgba(0, 0, 0, 0.75);
   color: #6c757d;
 }
+
 
 .card-body>a:link {
   text-decoration: none;
