@@ -18,7 +18,7 @@ const sourcesConfig =
         itemElements.forEach(element => {
           const titleEl = cssSelect.selectOne('.NewsFeed-title a', element);
           const title = titleEl ? utils.extractText(titleEl).trim() : '';
-          const link = titleEl && titleEl.attribs.href ? titleEl.attribs.href.trim() : '';
+          const link = "https://www.cbssports.com" + (titleEl && titleEl.attribs.href ? titleEl.attribs.href.trim() : '');
           const authorEl = cssSelect.selectOne('.NewsFeed-author', element);
           const author = authorEl ? utils.extractText(authorEl).trim() : '';
           const pubDateEl = cssSelect.selectOne('.NewsFeed-date time', element);
@@ -66,7 +66,7 @@ const sourcesConfig =
         
         cssSelect.selectAll('.story.item', document).forEach(element => {
           const author = utils.extractText(cssSelect.selectOne('.author-link', element));
-          const link = utils.extractHref(cssSelect.selectOne('a', element));
+          const link = "https://insidepacksports.com" + (utils.extractHref(cssSelect.selectOne('a', element)));
           let pubDate = utils.extractText(cssSelect.selectOne('.details', element), true);
           // Sanitize the pubDate by removing unwanted characters
           pubDate = pubDate.replace(/^[\s\S]*?(\d+)/, '$1'); // This will remove any characters before the first digit
@@ -95,7 +95,7 @@ const sourcesConfig =
         cssSelect.selectAll('.tnt-headline.headline', document).forEach(element => {
           const linkElement = cssSelect.selectOne('a', element);
           const title = utils.extractText(element).trim();
-          const link = linkElement ? linkElement.attribs.href : '';
+          const link = "https://www.technicianonline.com" + (linkElement ? linkElement.attribs.href : '');
     
           if (title && link) {
             feedArray.push({ author: '', link, pubDate: 'Latest', title });
@@ -109,7 +109,7 @@ const sourcesConfig =
           const dateElement = cssSelect.selectOne('.asset-date', element);
     
           const title = titleElement ? titleElement.attribs['aria-label'] : 'Title Error';
-          const link = linkElement ? linkElement.attribs.href : '';
+          const link = "https://www.technicianonline.com" + (linkElement ? linkElement.attribs.href : '');
           const author = authorElement ? utils.extractText(authorElement).trim() : '';
           const pubDate = dateElement ? utils.extractText(dateElement).trim() : 'Latest';
     
