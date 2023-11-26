@@ -1,15 +1,13 @@
 // import { Websites, SidebarImage, Schedule } from './index'
 import { Websites, Schedule } from './index'
-import type { WebsiteData as WebsiteConfig } from './index'
 import React from 'react'
 
 interface ContentProps {
   isDarkMode: boolean
-  rssConfig: WebsiteConfig[]
 
 }
 
-export function Content ({ isDarkMode, rssConfig }: ContentProps): React.ReactElement {
+export function Content ({ isDarkMode }: ContentProps): React.ReactElement {
   return (
     <div
       className={`Content ${isDarkMode ? 'dark' : ''}`}

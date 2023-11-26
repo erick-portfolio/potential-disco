@@ -1,14 +1,12 @@
 import './App.css'
 import React, { useState, useEffect } from 'react'
 import { NavBar, Footer, Content } from './components'
-import type { WebsiteData as WebsiteConfig } from './components'
 interface AppProps {
-  rssConfig: WebsiteConfig[]
   brandText: string
   disclaimer: string
 }
 
-function App ({ rssConfig, brandText, disclaimer }: AppProps): React.ReactElement {
+function App ({ brandText, disclaimer }: AppProps): React.ReactElement {
   const [isDarkMode, setIsDarkMode] = useState(
     localStorage.getItem('isDarkMode') === 'true'
   )
@@ -27,7 +25,7 @@ function App ({ rssConfig, brandText, disclaimer }: AppProps): React.ReactElemen
           toggleDarkMode={() => { setIsDarkMode(!isDarkMode) }}
           brandText={brandText}
         />
-        <Content isDarkMode={isDarkMode} rssConfig={rssConfig} />
+        <Content isDarkMode={isDarkMode} />
         <Footer isDarkMode={isDarkMode} brandText={brandText} disclaimer={disclaimer} />
       </div>
     </div>
