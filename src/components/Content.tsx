@@ -1,6 +1,6 @@
 // import { Websites, SidebarImage, Schedule } from './index'
 import { Websites, Schedule } from './index'
-import type { WebsiteConfig } from './index'
+import type { WebsiteData as WebsiteConfig } from './index'
 import React from 'react'
 
 interface ContentProps {
@@ -30,7 +30,6 @@ export function Content ({ isDarkMode, rssConfig }: ContentProps): React.ReactEl
           </div>
           <div className='col-md-10'>
             <Websites
-              rssConfig={rssConfig}
               isDarkMode={isDarkMode}
             />
           </div>

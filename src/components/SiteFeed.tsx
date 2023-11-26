@@ -2,10 +2,16 @@ import React, { Fragment } from 'react'
 import type { FC } from 'react'
 import { Card } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import type { RSSItem } from './RSSInterfaces'
+
+export interface Article {
+  title: string
+  link: string
+  pubDate: string
+  author: string | string[]
+}
 
 interface FeedCardProps {
-  item: RSSItem
+  item: Article
 }
 
 const FeedCard: FC<FeedCardProps> = ({ item }) => {
@@ -14,23 +20,13 @@ const FeedCard: FC<FeedCardProps> = ({ item }) => {
     return isNaN(pubDate.getTime()) ? date : pubDate.toLocaleString()
   }
 
-  // Function to format the author(s) string
   const formatAuthors = (authors: string | string[]): string => {
-    // If authors is a single string, return it directly
     if (typeof authors === 'string') {
       return authors
     }
-    // If authors is an array, format it
-    if (Array.isArray(authors) && authors.length > 0) {
-      // Check if there's only one author in the array
-      if (authors.length === 1) {
-        return authors[0]
-      }
-      // More than one author, format the string with commas and 'and'
-      const lastAuthor = authors.pop()
-      return `${authors.join(', ')}, and ${lastAuthor}`
+    if (Array.isArray(authors)) {
+      return authors.join(', ').replace(/, ([^,]*)$/, ' and $1')
     }
-    // Fallback for empty array or undefined
     return ''
   }
 
@@ -42,22 +38,21 @@ const FeedCard: FC<FeedCardProps> = ({ item }) => {
         </Link>
         <Card.Subtitle>
           {formatDate(item.pubDate)}
-          {item.author !== '' && item.author.length > 0 ? ` by ${formatAuthors(item.author)}` : ''}
+          {item.author !== '' ? ` by ${formatAuthors(item.author)}` : ''}
         </Card.Subtitle>
       </Card.Body>
     </Card>
   )
 }
 
-interface Props {
+interface SiteFeedProps {
   title: string
   homepage: string
   isDarkMode: boolean
-  items: RSSItem[]
-  isLoading: boolean
+  items: Article[]
 }
 
-const SiteFeed: FC<Props> = ({ title, homepage, isDarkMode, items, isLoading }) => (
+const SiteFeed: FC<SiteFeedProps> = ({ title, homepage, isDarkMode, items }) => (
   <Fragment>
     <div className="feed-header">
       <h1>
@@ -71,10 +66,9 @@ const SiteFeed: FC<Props> = ({ title, homepage, isDarkMode, items, isLoading }) 
         </Link>
       </h1>
     </div>
-    {isLoading
-      ? (<div className="loading-spinner"><div className="spinner-border text-primary" role="status"><span className="visually-hidden">Loading...</span></div></div>)
-      : (Array.isArray(items) && items.slice(0, 6).map((item) => <FeedCard key={item.link} item={item} />))
-      }
+    {Array.isArray(items) && items.slice(0, 6).map((item, index) => (
+      <FeedCard key={index} item={item} />
+    ))}
   </Fragment>
 )
 

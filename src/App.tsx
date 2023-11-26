@@ -1,7 +1,7 @@
 import './App.css'
 import React, { useState, useEffect } from 'react'
 import { NavBar, Footer, Content } from './components'
-import type { WebsiteConfig } from './components'
+import type { WebsiteData as WebsiteConfig } from './components'
 interface AppProps {
   rssConfig: WebsiteConfig[]
   brandText: string
