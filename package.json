@@ -10,7 +10,7 @@
     "@types/node-fetch": "^2.6.4",
     "@types/react": "^18.0.31",
     "@types/react-dom": "^18.0.11",
-    "aws-amplify": "^5.0.24",
+    "aws-amplify": "^5.3.12",
     "aws-lambda": "^1.0.7",
     "aws-sdk": "^2.1494.0",
     "bootstrap": "^5.2.3",
